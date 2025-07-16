@@ -1,0 +1,10 @@
+Terms
+
+Channel: A layer of the input, like color layers (RGB)	
+    3 channels → R, G, B
+Kernel: The actual weights (a small matrix) used for convolution	
+    A 3x3 matrix of weights
+Filter: A set of kernels (one per input channel), collectively detecting a pattern
+    One filter = 3 kernels for RGB input
+Feature map: The result after applying a filter to the input
+    Output image/layer

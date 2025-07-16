@@ -2,13 +2,14 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+# TODO: For now, assume input images are 224x224
 class SimpleSushiCNN(nn.Module):
     def __init__(self, num_classes):
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 16, kernel_size=3, padding=1)  # input RGB image
+        self.conv1 = nn.Conv2d(in_channels=3, out_channels=16, kernel_size=3, padding=1)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(16, 32, kernel_size=3, padding=1)
-        self.fc1 = nn.Linear(32 * 56 * 56, 128)  # assuming input images are 224x224
+        self.fc1 = nn.Linear(32 * 56 * 56, 128)
         self.fc2 = nn.Linear(128, num_classes)
 
     def forward(self, x):
