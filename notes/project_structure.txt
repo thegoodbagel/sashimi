@@ -1,0 +1,34 @@
+What chat suggested:
+sushi_classifier/
+│
+├── data/
+│   ├── raw/                # Original images (e.g., from web scraping or datasets)
+│   ├── processed/          # Resized, augmented, labeled, etc.
+│   └── sushi_labels.csv    # Image file names and labels (for custom datasets)
+│
+├── datasets/
+│   └── sushi_dataset.py    # Custom PyTorch Dataset class
+│
+├── models/
+│   └── classifier.py       # Model definition (e.g., ResNet, MobileNet, etc.)
+│
+├── training/
+│   ├── train.py            # Training loop
+│   ├── evaluate.py         # Evaluation and metrics
+│   └── utils.py            # Helper functions (e.g., accuracy, plotting, logging)
+│
+├── inference/
+│   ├── predict.py          # Inference logic (single image or batch)
+│   └── confidence.py       # Confidence calibration (optional)
+│
+├── experiments/
+│   └── exp_config.yaml     # Training configs (e.g., model, batch size, lr, etc.)
+│
+├── saved_models/
+│   └── best_model.pth      # Checkpoints
+│
+├── frontend/               # Placeholder for future web/mobile UI
+│   ├── streamlit_app.py    # Or Flask/Django/Vue/React depending on choice
+│
+├── requirements.txt
+└── README.md
