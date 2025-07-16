@@ -1,4 +1,4 @@
-# 🍣 Sashimi Classifier
+# 🍣 Sashimi Classifier (WIP)
 
 _A sushi companion for the introverted foodie._
 
