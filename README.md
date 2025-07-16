@@ -13,10 +13,12 @@ We're building an image classifier to identify different kinds of sashimi—beca
 ### ✅ Basics
 
 - **Build a basic classifier using PyTorch**
+
   - Experiment with different architectures
   - Research and document findings
 
 - **Data Collection**
+
   - Manually curate and label a dataset
   - Train the initial model
 
@@ -29,8 +31,13 @@ We're building an image classifier to identify different kinds of sashimi—beca
 ### 🌟 Desirable Features
 
 - **Expand the Dataset**
+
   - Include more types of sashimi
   - Explore automation for data gathering
+
+- ## **Extend to Images with Multiple Difference Pieces of Sashimi**
+
+  - Reflect in frontend, attaching labels to each 'group' of fish
 
 - **Add Benchmarking**
   - Measure and improve speed and accuracy
@@ -43,6 +50,6 @@ We're building an image classifier to identify different kinds of sashimi—beca
 - Implement unit tests for critical components
 - Extend to other types of food:
   - Include descriptors (taste, texture, etc.)
-  - Add location-based sushi recommendations (Automated *Beli*?)
+  - Add location-based sushi recommendations (Automated _Beli_?)
 
 ---
