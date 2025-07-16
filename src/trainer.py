@@ -4,13 +4,13 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 import pandas as pd
 from sushi_classifier import SushiClassifier, train
-from data import SushiDataset
+from sushi_dataset import SushiDataset
 from sklearn.model_selection import train_test_split
 
 def main():
     # Paths
-    label_path = "sushi_labels.csv"
-    image_dir = "raw_images"
+    label_path = "./data/sushi_labels.csv"
+    image_dir = "./data/raw"
     model_save_path = "saved_models/best_model.pth"
     os.makedirs(os.path.dirname(model_save_path), exist_ok=True)
 
