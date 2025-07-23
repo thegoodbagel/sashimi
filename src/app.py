@@ -9,7 +9,7 @@ from sushi_guide import show_sushi_guide
 
 # Setup
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-class_names = ["Otoro (Fatty Bluefin Tuna)", "Salmon"]
+class_names = ["Maguro (Bluefin Tuna)", "Salmon"]
 
 # Load model
 model = SushiClassifier(num_classes=2)
@@ -27,7 +27,7 @@ transform = transforms.Compose([
 # Page layout
 st.set_page_config(page_title="Sashimi Classifier", layout="wide")
 st.title("Sashimi Classifier 🍣")
-st.write("Upload an image and get a prediction!")
+st.write("Upload an image and get a prediction! (Currently only supports salmon and tuna, LOL)")
 
 # 👇 Show guide
 show_sushi_guide()
