@@ -10,12 +10,13 @@ We're building an image classifier to identify different kinds of sashimi—beca
 
 ## 🛠️ Project Milestones
 
-### ✅ Basics
+~~### Basics~~ ✅
 
 - **Build a basic classifier using PyTorch**
 
   - Experiment with different architectures
   - Research and document findings
+  - Limit to two types of sashimi - salmon and otoro
 
 - **Data Collection**
 
@@ -28,7 +29,7 @@ We're building an image classifier to identify different kinds of sashimi—beca
 
 ---
 
-### 🌟 Desirable Features
+### Desirable Features
 
 - **Expand the Dataset**
 
@@ -45,7 +46,7 @@ We're building an image classifier to identify different kinds of sashimi—beca
 
 ---
 
-### 🚀 Above and Beyond
+### Above and Beyond
 
 - Implement unit tests for critical components
 - Extend to other types of food:
