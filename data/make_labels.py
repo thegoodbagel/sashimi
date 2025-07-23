@@ -4,12 +4,13 @@ import os
 data = []
 
 # Go through files in raw image folder
+# TODO: Run from project root directory, make dynamic later(?)
 for filename in os.listdir("./data/raw"):
     if filename.endswith(".jpg"):
         if "salmon" in filename.lower():
             label = "salmon"
-        elif "bluefin-tuna" in filename.lower():
-            label = "bluefin-tuna"
+        elif "otoro" in filename.lower():
+            label = "otoro"
         else:
             continue
         data.append({"filename": filename, "label": label})
