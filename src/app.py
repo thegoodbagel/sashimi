@@ -6,7 +6,7 @@ from sushi_classifier import SushiClassifier, predict
 
 # Setup
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-class_names = ["Salmon", "Otoro (Fatty Bluefin Tuna)"]
+class_names = ["Otoro (Fatty Bluefin Tuna)", "Salmon"]
 
 # Load model
 model = SushiClassifier(num_classes=2)
