@@ -10,7 +10,7 @@ We're building an image classifier to identify different kinds of sashimi—beca
 
 ## 🛠️ Project Milestones
 
-~~### Basics~~ ✅
+### ~~Basics~~ ✅
 
 - **Build a basic classifier using PyTorch**
 
