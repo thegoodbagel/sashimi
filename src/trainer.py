@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 def main():
     # Paths
     label_path = "./data/sushi_labels.csv"
-    image_dir = "./data/raw"
+    image_dir = "./data/processed"
     model_save_path = "saved_models/best_model.pth"
     os.makedirs(os.path.dirname(model_save_path), exist_ok=True)
 
