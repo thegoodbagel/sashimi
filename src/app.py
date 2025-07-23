@@ -3,8 +3,6 @@ import torch
 from torchvision import transforms
 from PIL import Image
 from sushi_classifier import SushiClassifier, predict
-
-# 👇 NEW import
 from sushi_guide import show_sushi_guide
 
 # Setup
