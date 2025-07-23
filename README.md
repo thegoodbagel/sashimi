@@ -35,7 +35,7 @@ We're building an image classifier to identify different kinds of sashimi—beca
 - **Expand the Dataset**
 
   - Include more types of sashimi
-  - Explore automation for data gathering
+  - Automate data gathering & processing
 
 - ## **Extend to Images with Multiple Difference Pieces of Sashimi**
 
