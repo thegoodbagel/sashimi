@@ -12,7 +12,7 @@ We're building an image classifier to identify different kinds of sashimi—beca
 
 ### ~~Basics~~ ✅
 
-- **Build a basic classifier using PyTorch**
+- **Build a basic classifier using PyTorch** -> Used Resnet18
 
   - Experiment with different architectures
   - Research and document findings
@@ -30,6 +30,7 @@ We're building an image classifier to identify different kinds of sashimi—beca
 ---
 
 ### Desirable Features
+- **Create a custom classifier** 
 
 - **Expand the Dataset**
 
