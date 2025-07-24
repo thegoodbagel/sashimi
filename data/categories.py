@@ -1,3 +1,6 @@
+CATEGORIES = [
+    "ebi (shrimp)"
+]
 
 CATEGORIES = [
     "sake (salmon) toro", 
@@ -14,12 +17,11 @@ CATEGORIES = [
     "buri or hamachi (japanese amberjack or yellowtail)", 
     "hiramasa (yellowtail amberjack)", 
     "kanpachi (greater amberjack)",
-    "engawa (halibut)", 
+    "hirame (bastard halibut or japanese flounder)", 
+    "karei (marbled japanese flatfish)",
+    "engawa (flounder fin)",
     "hotate (scallop)",
-    "amaebi botan ebi (sweet shrimps)", 
-    "aka ebi (red shrimp)", 
-    "kurama ebi (japanese tiger prawns)", 
-    "tai madai (red sea bream)", 
+    "ebi (shrimp)", 
     "tai kurodai (black sea bream or japanese black porgy)", 
     "tai chidai (crimson sea bream)", 
     "tai kinmedai (splendid alfonsino or golden eye snapper)",

@@ -55,13 +55,20 @@ def main():
         if not os.path.isdir(folder_path):
             continue
 
-        # Split on last underscore: e.g. 'hokkigai_(surf_clam)_sashimi'
-        if '_' in label_folder:
-            parts = label_folder.rsplit('_', 1)
-            species = parts[0]
-            part = parts[1]
+        # Has part: 'maguro_(tuna)_chutoro_sashimi' -> chutoro
+        # Doesn't have part: 'hokkigai_(surf_clam)_sashimi'
+        # Remove trailing "_sashimi" first
+        if label_folder.endswith('_sashimi'):
+            base_name = label_folder[:-len('_sashimi')]  # remove trailing '_sashimi'
         else:
-            species = label_folder
+            base_name = label_folder
+
+        # Now parse species and part
+        if '_' in base_name:
+            # split on the last underscore to separate species and part
+            species, part = base_name.rsplit('_', 1)
+        else:
+            species = base_name
             part = ''
 
         for fname in os.listdir(folder_path):
@@ -83,7 +90,7 @@ def main():
     df = pd.DataFrame(labels)
     df.to_csv(LABELS_FILE, index=False)
     print(f"📝 Labels saved to {LABELS_FILE}")
-    
+
 if __name__ == "__main__":
     main()
     print("✅ Data processing complete!")

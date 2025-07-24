@@ -18,7 +18,7 @@ def download_images_for_query(query, max_results=10):
     save_path = os.path.join(SAVE_DIR, query.replace(" ", "_"))
     os.makedirs(save_path, exist_ok=True)
 
-    for start in range(1, max_results, 10):
+    for start in range(20+1, 20+max_results, 10):
         print(f"Fetching images {start} to {start + 9} for query: {query}")
         params = {
             "q": query,

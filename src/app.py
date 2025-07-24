@@ -5,9 +5,13 @@ from PIL import Image
 from sushi_classifier import SushiClassifier, predict
 from sushi_guide import show_sushi_guide
 
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data")))
+from categories import CATEGORIES
+
 # Setup
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-class_names = ["Maguro (Bluefin Tuna)", "Salmon"]
 
 # Load model
 model = SushiClassifier(num_classes=2)
@@ -25,7 +29,7 @@ transform = transforms.Compose([
 # Page layout
 st.set_page_config(page_title="Sashimi Classifier", layout="wide")
 st.title("Sashimi Classifier 🍣")
-st.write("Upload an image and get a prediction! (Currently only supports salmon and tuna, LOL)")
+st.write("Upload an image and get a prediction!")
 
 # 👇 Show guide
 show_sushi_guide()
@@ -50,5 +54,5 @@ if input_image is not None:
     st.image(input_image, caption='Input Image', use_column_width=True)
     st.write("🔍 Running inference...")
 
-    label, confidence = predict(model, input_image, transform, class_names, device)
-    st.success(f"🍣 Prediction: **{label.title()}** ({confidence * 100:.1f}% confidence)")
+    label, confidence = predict(model, input_image, transform, CATEGORIES, device)
+    st.success(f"🍣 Prediction: **{label.title().upper()}** ({confidence * 100:.1f}% confidence)")

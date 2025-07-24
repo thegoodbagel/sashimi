@@ -27,8 +27,17 @@ def main():
     df["species"] = df["species"].map(species_to_idx)
     df["part"] = df["part"].map(part_to_idx)
 
-    # Train/val split
-    train_df, val_df = train_test_split(df, test_size=0.2, stratify=df["species"], random_state=42)
+    # Train/val split - Stratify if possible
+    if df["species"].nunique() <= int(len(df) * 0.2):
+        stratify = df["species"]
+    else:
+        stratify = None
+        print("⚠️ Too few samples per class to stratify.")
+
+    train_df, val_df = train_test_split(
+        df, test_size=0.2, stratify=stratify, random_state=42
+    )
+
 
     # Transform
     transform = transforms.Compose([

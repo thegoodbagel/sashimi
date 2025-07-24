@@ -14,16 +14,14 @@ class SushiDataset(Dataset):
         return len(self.df)
 
     def __getitem__(self, idx):
-        img_path = os.path.join(self.img_dir, self.df.iloc[idx]['filename'])
-        image = Image.open(img_path).convert('RGB')
-
-        species = self.df.iloc[idx]['species']
-        part = self.df.iloc[idx]['part']
-
-        species_label = self.species_to_idx[species]
-        part_label = self.part_to_idx[part]
+        row = self.df.iloc[idx]
+        img_path = os.path.join(self.img_dir, row["filename"])
+        image = Image.open(img_path).convert("RGB")
 
         if self.transform:
             image = self.transform(image)
+
+        species_label = row["species"]
+        part_label = row["part"]
 
         return image, species_label, part_label
