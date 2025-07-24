@@ -46,7 +46,7 @@ We're building an image classifier to identify different kinds of sashimi—beca
 ### Above and Beyond
 
 - Implement unit tests for critical components
-- Extend to other types of food:
+- Extend to other types of sushi: nigiri, chirashi, poke, etc.
   - Include descriptors (taste, texture, etc.)
   - Add location-based sushi recommendations (Automated _Beli_?)
 
