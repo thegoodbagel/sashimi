@@ -1,18 +1,8 @@
 CATEGORIES = [
-    "ebi (shrimp)"
-]
-
-CATEGORIES = [
-    "sake (salmon) toro", 
-    "sake (salmon) harasu", 
+    "sake (salmon)",
     "maguro (tuna) otoro", 
     "maguro (tuna) chutoro", 
     "maguro (tuna) akami",
-    "honmaguro (northern bluefin tuna)", 
-    "minamimaguro (southern bluefin tuna)", 
-    "mebachimaguro (bigeye tuna)", 
-    "kihadamaguro (yellowfin tuna)", 
-    "binnagamaguro (albacore tuna)",
     "katsuo (skipjack tuna)", 
     "buri or hamachi (japanese amberjack or yellowtail)", 
     "hiramasa (yellowtail amberjack)", 
@@ -23,9 +13,7 @@ CATEGORIES = [
     "hotate (scallop)",
     "ebi (shrimp)", 
     "tai kurodai (black sea bream or japanese black porgy)", 
-    "tai chidai (crimson sea bream)", 
     "tai kinmedai (splendid alfonsino or golden eye snapper)",
-    "tai ishidai (striped beakfish)", 
     "tai himedai (rosy seabass)",
     "shime saba (cured mackerel)", 
     "aji (horse mackarel)", 

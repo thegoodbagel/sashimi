@@ -1,28 +1,14 @@
 import os
-import shutil
+import re
 
-RAW_DIR = "./data/raw"
+dir_path = "data/raw/sake_(salmon)_sashimi"
 
-def clean_bad_folders_and_files():
-    for folder_name in os.listdir(RAW_DIR):
-        folder_path = os.path.join(RAW_DIR, folder_name)
-
-        # Skip if not a folder
-        if not os.path.isdir(folder_path):
-            continue
-
-        # Remove folder if it doesn't end with _sashimi
-        if not folder_name.endswith("_sashimi"):
-            print(f"🗑️ Removing folder (invalid name): {folder_name}")
-            shutil.rmtree(folder_path)
-            continue
-
-        # Inside valid folder, remove any files that don't contain _sashimi
-        for fname in os.listdir(folder_path):
-            if "_sashimi" not in fname:
-                file_path = os.path.join(folder_path, fname)
-                print(f"🗑️ Removing file (invalid name): {file_path}")
-                os.remove(file_path)
-
-if __name__ == "__main__":
-    clean_bad_folders_and_files()
+for fname in os.listdir(dir_path):
+    match = re.match(r"sake_\(salmon\)_(?:harasu|toro)_sashimi_(\d+)", fname)
+    if match:
+        number = match.group(1)
+        new_name = f"sake_(salmon)_sashimi_{number}"
+        src = os.path.join(dir_path, fname)
+        dst = os.path.join(dir_path, new_name)
+        os.rename(src, dst)
+        print(f"✅ Renamed: {fname} → {new_name}")

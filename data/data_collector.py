@@ -11,7 +11,8 @@ CSE_ID = "d539947c708134729"
 
 # Where to save downloaded images
 SAVE_DIR = "./data/raw"
-os.makedirs(SAVE_DIR, exist_ok=True)
+if not os.path.exists(SAVE_DIR):
+    os.makedirs(SAVE_DIR, exist_ok=True)
 
 def download_images_for_query(query, max_results=10):
     print(f"🔍 Searching: {query}")
