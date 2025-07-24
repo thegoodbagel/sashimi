@@ -68,7 +68,7 @@ def main():
         if not os.path.isdir(folder_path):
             continue
 
-        # Determine species name from folder (same logic as before)
+        # Extract species and part from folder name
         if label_folder.endswith('_sashimi'):
             base_name = label_folder[:-len('_sashimi')]
         else:
@@ -80,13 +80,10 @@ def main():
             species = base_name
             part = ''
 
+        # Skip if species filter is on and doesn't match
         if args.species:
-            to_skip = True
-            for filter_species in args.species:
-                if filter_species in label_folder.lower():
-                    to_skip = False
-                    break
-            if to_skip:
+            match_found = any(filter_str.lower() in label_folder.lower() for filter_str in args.species)
+            if not match_found:
                 continue
 
         print(f"Processing species '{species}'")
@@ -107,9 +104,29 @@ def main():
                     "part": part
                 })
 
-    df = pd.DataFrame(labels)
-    df.to_csv(LABELS_FILE, index=False)
+    # Load existing CSV if present and non-empty
+    try:
+        if os.path.exists(LABELS_FILE) and os.path.getsize(LABELS_FILE) > 0:
+            existing_df = pd.read_csv(LABELS_FILE)
+        else:
+            raise pd.errors.EmptyDataError
+    except pd.errors.EmptyDataError:
+        existing_df = pd.DataFrame(columns=["filename", "species", "part"])
+
+    # Drop existing rows that match the newly processed species
+    if args.species:
+        for s in args.species:
+            existing_df = existing_df[~existing_df["species"].str.lower().str.contains(s.lower(), na=False)]
+
+    # Add new labels
+    df_new = pd.DataFrame(labels)
+    final_df = pd.concat([existing_df, df_new], ignore_index=True)
+
+    # Save updated CSV
+    final_df.to_csv(LABELS_FILE, index=False)
     print(f"📝 Labels saved to {LABELS_FILE}")
+
+
 
 if __name__ == "__main__":
     main()
