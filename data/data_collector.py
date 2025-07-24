@@ -6,7 +6,7 @@ import time
 from categories import CATEGORIES
 
 # ✏️ Replace with your credentials
-API_KEY = "AIzaSyDcuBnlszQlakfaat0Lz4OMFI_mkTV9QDY"
+API_KEY = "AIzaSyB76d3vpWRvMTdqLON5YmBhcKhNFfQmEdk"
 CSE_ID = "d539947c708134729"
 
 # Where to save downloaded images
@@ -47,7 +47,7 @@ def download_images_for_query(query, max_results=10):
             except Exception as e:
                 print(f"⚠️ Skipped one image for {query}: {e}")
 
-        # time.sleep(1.5)  # prevent rate limit
+        time.sleep(1.5)  # prevent rate limit
 
 def main():
     for cat in CATEGORIES:
