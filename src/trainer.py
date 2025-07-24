@@ -64,9 +64,10 @@ def main():
     # Model, losses, optimizer
     num_species = len(species_to_idx)
     num_parts = len(part_to_idx)
+    idx_to_species = {v: k for k, v in species_to_idx.items()}
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = SushiClassifier(num_species=num_species, num_parts=num_parts).to(device)
+    model = SushiClassifier(num_species=num_species, num_parts=num_parts, idx_to_species=idx_to_species).to(device)
 
     species_criterion = CrossEntropyLoss()
     part_criterion = CrossEntropyLoss()
@@ -84,7 +85,13 @@ def main():
         if val_acc > best_val_acc:
             print("✅ New best model! Saving...")
             best_val_acc = val_acc
-            torch.save(model.state_dict(), model_save_path)
+            checkpoint = {
+                'model_state_dict': model.state_dict(),
+                'num_species': num_species,
+                'num_parts': num_parts,
+                'idx_to_species': model.idx_to_species,
+            }
+            torch.save(checkpoint, model_save_path)
 
 def _forward_pass(model, images, species_labels, part_labels, species_to_idx, species_criterion, part_criterion):
     species_logits, part_logits = model(images)

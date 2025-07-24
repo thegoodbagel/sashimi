@@ -5,17 +5,14 @@ from PIL import Image
 from sushi_classifier import SushiClassifier, predict
 from sushi_guide import show_sushi_guide
 
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data")))
-from categories import CATEGORIES
-
 # Setup
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-# Load model
-model = SushiClassifier(num_classes=2)
-model.load_state_dict(torch.load("./saved_models/best_model.pth", map_location=device))
+checkpoint = torch.load("./saved_models/best_model.pth", map_location=device)
+model = SushiClassifier(num_species=checkpoint['num_species'], 
+                        num_parts=checkpoint['num_parts'],
+                        idx_to_species=checkpoint['idx_to_species'])
+model.load_state_dict(checkpoint['model_state_dict'])
 model.to(device)
 
 # Image transform
@@ -31,28 +28,54 @@ st.set_page_config(page_title="Sashimi Classifier", layout="wide")
 st.title("Sashimi Classifier 🍣")
 st.write("Upload an image and get a prediction!")
 
-# 👇 Show guide
+# Show guide
 show_sushi_guide()
-# User option: Upload or Take a Photo
-st.markdown("### 📸 Upload or Take a Picture of Your Sashimi")
 
-# 1. Let user take photo with camera
-camera_image = st.camera_input("Take a photo")
+# Initialize session state vars
+if "show_camera" not in st.session_state:
+    st.session_state.show_camera = False
+if "input_image" not in st.session_state:
+    st.session_state.input_image = None
+if "prediction_done" not in st.session_state:
+    st.session_state.prediction_done = False
+if "prediction_result" not in st.session_state:
+    st.session_state.prediction_result = None
 
-# 2. Let user upload a photo
-uploaded_file = st.file_uploader("...or upload an image", type=["jpg", "png"])
+# 🔲 Section: Take a Photo
+st.markdown("#### 📸 Take a Photo")
+with st.container():
+    if st.button("📷 Open Camera to Capture Image", key="open_camera_btn"):
+        st.session_state.show_camera = True
+        st.session_state.prediction_done = False  # reset prediction
 
-# Prioritize camera image if both are used
-input_image = None
-if camera_image is not None:
-    input_image = Image.open(camera_image).convert("RGB")
-elif uploaded_file is not None:
-    input_image = Image.open(uploaded_file).convert("RGB")
+    if st.session_state.show_camera:
+        camera_image = st.camera_input("")
+        if camera_image:
+            st.session_state.input_image = Image.open(camera_image).convert("RGB")
+            st.session_state.show_camera = False  # close camera after photo
 
-# Show prediction if any image is provided
-if input_image is not None:
-    st.image(input_image, caption='Input Image', use_column_width=True)
-    st.write("🔍 Running inference...")
+        if st.button("❌ Cancel", key="cancel_camera_btn"):
+            st.session_state.show_camera = False
 
-    label, confidence = predict(model, input_image, transform, CATEGORIES, device)
+# 🔲 Section: Upload a Photo
+with st.container():
+    st.markdown("#### 🖼️ Upload an Image")
+    uploaded_file = st.file_uploader("Choose a file", type=["jpg", "png"])
+    if uploaded_file:
+        st.session_state.input_image = Image.open(uploaded_file).convert("RGB")
+        st.session_state.prediction_done = False  # reset prediction
+
+# Display image preview if available
+if st.session_state.input_image:
+    st.image(st.session_state.input_image, caption='Input Image', use_column_width=True)
+
+    # Predict button
+    if st.button("🔍 Predict Sashimi"):
+        label, confidence = predict(model, st.session_state.input_image, transform, device)
+        st.session_state.prediction_result = (label, confidence)
+        st.session_state.prediction_done = True
+
+# Show prediction result if done
+if st.session_state.prediction_done and st.session_state.prediction_result:
+    label, confidence = st.session_state.prediction_result
     st.success(f"🍣 Prediction: **{label.title().upper()}** ({confidence * 100:.1f}% confidence)")
