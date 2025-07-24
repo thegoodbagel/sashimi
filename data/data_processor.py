@@ -1,4 +1,5 @@
 import os
+import argparse
 from PIL import Image, UnidentifiedImageError
 import pandas as pd
 import torch
@@ -10,15 +11,28 @@ PROCESSED_DIR = './data/processed'
 LABELS_FILE = './data/sushi_labels.csv'
 VALID_EXTENSIONS = {'.png', '.jpg', '.jpeg'}
 
+# Parse command line args
+parser = argparse.ArgumentParser(description="Process sushi images by species filter.")
+parser.add_argument(
+    "-s", "--species",
+    nargs="+",
+    help="List of sushi species to process, e.g. -s salmon maguro hokkigai"
+)
+args = parser.parse_args()
+
+# If no species specified, clear processed directory; otherwise preserve it
 os.makedirs(PROCESSED_DIR, exist_ok=True)
-# Clear all pre-existing files
-if os.path.exists(PROCESSED_DIR):
+if not args.species:
+    print(f"Clearing processed directory {PROCESSED_DIR} (full reprocess)")
     for filename in os.listdir(PROCESSED_DIR):
         file_path = os.path.join(PROCESSED_DIR, filename)
         try:
             os.remove(file_path)
         except Exception as e:
             print(f"Failed to delete {file_path}: {e}")
+else:
+    print(f"Processing only specified species: {args.species}")
+    print(f"Preserving contents of {PROCESSED_DIR}")
 
 # Load model & device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -26,7 +40,6 @@ model = SushiFilterModel().to(device)
 model.load_state_dict(torch.load('./data/best_sushi_filter.pth', map_location=device))
 model.eval()
 
-# Confidence threshold for filtering (tweak as needed)
 CONFIDENCE_THRESHOLD = 0.7
 
 def process_and_save_image(src_path, dst_path):
@@ -50,26 +63,30 @@ def process_and_save_image(src_path, dst_path):
 def main():
     labels = []
 
+    # Normalize species list to lowercase for case-insensitive match
+    species_filter = {s.lower() for s in args.species} if args.species else None
+
     for label_folder in os.listdir(RAW_DIR):
         folder_path = os.path.join(RAW_DIR, label_folder)
         if not os.path.isdir(folder_path):
             continue
 
-        # Has part: 'maguro_(tuna)_chutoro_sashimi' -> chutoro
-        # Doesn't have part: 'hokkigai_(surf_clam)_sashimi'
-        # Remove trailing "_sashimi" first
+        # Determine species name from folder (same logic as before)
         if label_folder.endswith('_sashimi'):
-            base_name = label_folder[:-len('_sashimi')]  # remove trailing '_sashimi'
+            base_name = label_folder[:-len('_sashimi')]
         else:
             base_name = label_folder
 
-        # Now parse species and part
         if '_' in base_name:
-            # split on the last underscore to separate species and part
             species, part = base_name.rsplit('_', 1)
         else:
             species = base_name
             part = ''
+
+        # Skip if species filtering is enabled and this species not requested
+        if species_filter and species.lower() not in species_filter:
+            print(f"Skipping species '{species}' (not in filter list)")
+            continue
 
         for fname in os.listdir(folder_path):
             name, ext = os.path.splitext(fname.lower())
