@@ -3,10 +3,12 @@ from PIL import Image
 import os
 
 class SushiDataset(Dataset):
-    def __init__(self, dataframe, img_dir, transform=None):
+    def __init__(self, dataframe, img_dir, transform=None, species_to_idx=None, part_to_idx=None):
         self.df = dataframe
         self.img_dir = img_dir
         self.transform = transform
+        self.species_to_idx = species_to_idx
+        self.part_to_idx = part_to_idx
 
     def __len__(self):
         return len(self.df)
@@ -14,7 +16,14 @@ class SushiDataset(Dataset):
     def __getitem__(self, idx):
         img_path = os.path.join(self.img_dir, self.df.iloc[idx]['filename'])
         image = Image.open(img_path).convert('RGB')
-        label = self.df.iloc[idx]['label']
+
+        species = self.df.iloc[idx]['species']
+        part = self.df.iloc[idx]['part']
+
+        species_label = self.species_to_idx[species]
+        part_label = self.part_to_idx[part]
+
         if self.transform:
             image = self.transform(image)
-        return image, label
+
+        return image, species_label, part_label

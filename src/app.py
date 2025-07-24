@@ -29,13 +29,26 @@ st.write("Upload an image and get a prediction! (Currently only supports salmon 
 
 # 👇 Show guide
 show_sushi_guide()
+# User option: Upload or Take a Photo
+st.markdown("### 📸 Upload or Take a Picture of Your Sashimi")
 
-# Image prediction
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png"])
-if uploaded_file is not None:
-    image = Image.open(uploaded_file).convert("RGB")
-    st.image(image, caption='Uploaded Image.', use_column_width=True)
-    st.write("Running inference...")
+# 1. Let user take photo with camera
+camera_image = st.camera_input("Take a photo")
 
-    label, confidence = predict(model, image, transform, class_names, device)
-    st.success(f"Prediction: {label.title()} 🍣 (confidence: {confidence * 100:.1f}%)")
+# 2. Let user upload a photo
+uploaded_file = st.file_uploader("...or upload an image", type=["jpg", "png"])
+
+# Prioritize camera image if both are used
+input_image = None
+if camera_image is not None:
+    input_image = Image.open(camera_image).convert("RGB")
+elif uploaded_file is not None:
+    input_image = Image.open(uploaded_file).convert("RGB")
+
+# Show prediction if any image is provided
+if input_image is not None:
+    st.image(input_image, caption='Input Image', use_column_width=True)
+    st.write("🔍 Running inference...")
+
+    label, confidence = predict(model, input_image, transform, class_names, device)
+    st.success(f"🍣 Prediction: **{label.title()}** ({confidence * 100:.1f}% confidence)")

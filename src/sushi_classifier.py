@@ -1,35 +1,18 @@
-import torch
 import torch.nn as nn
 import torchvision.models as models
 
 class SushiClassifier(nn.Module):
-    def __init__(self, num_classes):
+    def __init__(self, num_species, num_parts):
         super().__init__()
-        ## TODO: Custom model, change final layer
         self.base_model = models.resnet18(pretrained=True)
-        self.base_model.fc = nn.Linear(self.base_model.fc.in_features, num_classes)
+        in_features = self.base_model.fc.in_features
+        self.base_model.fc = nn.Identity()  # remove the original FC
+
+        self.species_head = nn.Linear(in_features, num_species)
+        self.part_head = nn.Linear(in_features, num_parts)
 
     def forward(self, x):
-        return self.base_model(x)
-
-def train(model, train_loader, criterion, optimizer, device):
-    model.train()
-    for images, labels in train_loader:
-        images, labels = images.to(device), labels.to(device)
-        optimizer.zero_grad()
-        outputs = model(images)
-        loss = criterion(outputs, labels)
-        loss.backward()
-        optimizer.step()
-
-def predict(model, image, transform, class_names, device):
-    model.eval()
-    with torch.no_grad():
-        image = transform(image).unsqueeze(0).to(device)
-        output = model(image)
-        probabilities = nn.functional.softmax(output[0], dim=0)
-        confidence, predicted_class = torch.max(probabilities, 0)
-        return class_names[predicted_class.item()], confidence.item()
-
-
-
+        features = self.base_model(x)
+        species_logits = self.species_head(features)
+        part_logits = self.part_head(features)
+        return species_logits, part_logits
