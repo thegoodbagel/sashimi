@@ -11,6 +11,14 @@ LABELS_FILE = './data/sushi_labels.csv'
 VALID_EXTENSIONS = {'.png', '.jpg', '.jpeg'}
 
 os.makedirs(PROCESSED_DIR, exist_ok=True)
+# Clear all pre-existing files
+if os.path.exists(PROCESSED_DIR):
+    for filename in os.listdir(PROCESSED_DIR):
+        file_path = os.path.join(PROCESSED_DIR, filename)
+        try:
+            os.remove(file_path)
+        except Exception as e:
+            print(f"Failed to delete {file_path}: {e}")
 
 # Load model & device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -24,7 +32,7 @@ CONFIDENCE_THRESHOLD = 0.7
 def process_and_save_image(src_path, dst_path):
     try:
         with Image.open(src_path) as img:
-            # Run the filter
+            img = img.convert("RGB")
             pred, conf = predict(model, img, device)
 
             if pred == 1 and conf >= CONFIDENCE_THRESHOLD:
@@ -47,8 +55,11 @@ def main():
         if not os.path.isdir(folder_path):
             continue
 
+        # Split on last underscore: e.g. 'hokkigai_(surf_clam)_sashimi'
         if '_' in label_folder:
-            species, part = label_folder.split('_', 1)
+            parts = label_folder.rsplit('_', 1)
+            species = parts[0]
+            part = parts[1]
         else:
             species = label_folder
             part = ''
@@ -72,6 +83,7 @@ def main():
     df = pd.DataFrame(labels)
     df.to_csv(LABELS_FILE, index=False)
     print(f"📝 Labels saved to {LABELS_FILE}")
-
+    
 if __name__ == "__main__":
     main()
+    print("✅ Data processing complete!")

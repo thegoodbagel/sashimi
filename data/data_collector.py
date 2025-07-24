@@ -6,7 +6,7 @@ import time
 from categories import CATEGORIES
 
 # ✏️ Replace with your credentials
-API_KEY = "AIzaSyB76d3vpWRvMTdqLON5YmBhcKhNFfQmEdk"
+API_KEY = "AIzaSyBouYfXAwAfix9aWPYQyrEALtlJjmtHWrQ"
 CSE_ID = "d539947c708134729"
 
 # Where to save downloaded images
@@ -14,7 +14,7 @@ SAVE_DIR = "./data/raw"
 os.makedirs(SAVE_DIR, exist_ok=True)
 
 def download_images_for_query(query, max_results=10):
-    print(f"🔍 Searching: {query} Sashimi")
+    print(f"🔍 Searching: {query}")
     save_path = os.path.join(SAVE_DIR, query.replace(" ", "_"))
     os.makedirs(save_path, exist_ok=True)
 
@@ -51,7 +51,7 @@ def download_images_for_query(query, max_results=10):
 
 def main():
     for cat in CATEGORIES:
-        download_images_for_query(cat, max_results=20)
+        download_images_for_query(cat + " sashimi", max_results=20)
 
 if __name__ == "__main__":
     main()
