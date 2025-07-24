@@ -1,6 +1,9 @@
 import os
 from PIL import Image, UnidentifiedImageError
 import pandas as pd
+import torch
+from torchvision import transforms
+from food_filter import SushiFilterModel, predict  # assuming your model code is in food_filter.py
 
 RAW_DIR = './data/raw'
 PROCESSED_DIR = './data/processed'
@@ -9,13 +12,32 @@ VALID_EXTENSIONS = {'.png', '.jpg', '.jpeg'}
 
 os.makedirs(PROCESSED_DIR, exist_ok=True)
 
+# Load model & device
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model = SushiFilterModel().to(device)
+model.load_state_dict(torch.load('./data/best_sushi_filter.pth', map_location=device))
+model.eval()
+
+# Confidence threshold for filtering (tweak as needed)
+CONFIDENCE_THRESHOLD = 0.7
+
 def process_and_save_image(src_path, dst_path):
     try:
         with Image.open(src_path) as img:
-            img.convert("RGB").save(dst_path, format='JPEG')
-            print(f"✅ Saved: {dst_path}")
+            # Run the filter
+            pred, conf = predict(model, img, device)
+
+            if pred == 1 and conf >= CONFIDENCE_THRESHOLD:
+                img.convert("RGB").save(dst_path, format='JPEG')
+                print(f"✅ Saved (passed filter): {dst_path}")
+                return True
+            else:
+                print(f"❌ Filtered out (not sushi/sashimi or low confidence): {src_path} (conf: {conf:.2f})")
+                return False
+
     except (UnidentifiedImageError, OSError) as e:
         print(f"❌ Skipping {src_path}: {e}")
+        return False
 
 def main():
     labels = []
@@ -25,11 +47,9 @@ def main():
         if not os.path.isdir(folder_path):
             continue
 
-        # Assume folder name format: species_part, e.g. maguro_otoro
         if '_' in label_folder:
             species, part = label_folder.split('_', 1)
         else:
-            # fallback if no underscore present
             species = label_folder
             part = ''
 
@@ -42,13 +62,12 @@ def main():
             dst_filename = f"{label_folder}_{name}.jpg"
             dst_path = os.path.join(PROCESSED_DIR, dst_filename)
 
-            process_and_save_image(src_path, dst_path)
-
-            labels.append({
-                "filename": dst_filename,
-                "species": species,
-                "part": part
-            })
+            if process_and_save_image(src_path, dst_path):
+                labels.append({
+                    "filename": dst_filename,
+                    "species": species,
+                    "part": part
+                })
 
     df = pd.DataFrame(labels)
     df.to_csv(LABELS_FILE, index=False)
