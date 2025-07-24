@@ -18,20 +18,3 @@ class SushiClassifier(nn.Module):
         species_logits = self.species_head(features)
         part_logits = self.part_head(features)
         return species_logits, part_logits
-
-def train(model, dataloader, species_criterion, part_criterion, optimizer, device):
-    model.train()
-    for images, species_labels, part_labels in dataloader:
-        images = images.to(device)
-        species_labels = species_labels.to(device)
-        part_labels = part_labels.to(device)
-
-        optimizer.zero_grad()
-        species_logits, part_logits = model(images)
-
-        loss_species = species_criterion(species_logits, species_labels)
-        loss_part = part_criterion(part_logits, part_labels)
-        loss = loss_species + loss_part
-
-        loss.backward()
-        optimizer.step()

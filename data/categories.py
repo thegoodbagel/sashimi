@@ -24,5 +24,4 @@ CATEGORIES = [
     "mirugai (geoduck clam)",
     "ika (squid)", 
     "tako (octopus)", 
-    "hiougi (scallop)"
 ]
