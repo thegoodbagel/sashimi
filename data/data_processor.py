@@ -63,9 +63,6 @@ def process_and_save_image(src_path, dst_path):
 def main():
     labels = []
 
-    # Normalize species list to lowercase for case-insensitive match
-    species_filter = {s.lower() for s in args.species} if args.species else None
-
     for label_folder in os.listdir(RAW_DIR):
         folder_path = os.path.join(RAW_DIR, label_folder)
         if not os.path.isdir(folder_path):
@@ -83,10 +80,16 @@ def main():
             species = base_name
             part = ''
 
-        # Skip if species filtering is enabled and this species not requested
-        if species_filter and species.lower() not in species_filter:
-            print(f"Skipping species '{species}' (not in filter list)")
-            continue
+        if args.species:
+            to_skip = True
+            for filter_species in args.species:
+                if filter_species in label_folder.lower():
+                    to_skip = False
+                    break
+            if to_skip:
+                continue
+
+        print(f"Processing species '{species}'")
 
         for fname in os.listdir(folder_path):
             name, ext = os.path.splitext(fname.lower())
