@@ -12,18 +12,16 @@ We're building an image classifier to identify different kinds of sashimi—beca
 
 ### ~~Basics~~ ✅
 
-- **Build a basic classifier using PyTorch** -> Used Resnet18
-
+- **Build a basic classifier using PyTorch** ✅ -> Used Resnet18
   - Experiment with different architectures
   - Research and document findings
   - Limit to two types of sashimi - salmon and otoro
 
-- **Data Collection**
-
+- **Data Collection** ✅
   - Manually curate and label a dataset
   - Train the initial model
 
-- **Add a Frontend**
+- **Add a Frontend** ✅ -> Used Streamlit
   - Let users upload or take pictures
   - Optionally incorporate user-submitted images into the dataset
 
@@ -32,13 +30,11 @@ We're building an image classifier to identify different kinds of sashimi—beca
 ### Desirable Features
 - **Create a custom classifier** 
 
-- **Expand the Dataset**
-
+- **Expand the Dataset** ✅ -> Used Google API
   - Include more types of sashimi
   - Automate data gathering & processing
 
-- ## **Extend to Images with Multiple Difference Pieces of Sashimi**
-
+- **Extend to Images with Multiple Difference Pieces of Sashimi**
   - Reflect in frontend, attaching labels to each 'group' of fish
 
 - **Add Benchmarking**
