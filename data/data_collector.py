@@ -3,31 +3,15 @@ import requests
 from urllib.parse import urlencode
 from pathlib import Path
 import time
+from categories import CATEGORIES
 
 # ✏️ Replace with your credentials
-API_KEY = "AIzaSyBIRmVvkVL9T5nnoKrCEjA11YuW69K-Fow"
+API_KEY = "AIzaSyDcuBnlszQlakfaat0Lz4OMFI_mkTV9QDY"
 CSE_ID = "d539947c708134729"
 
 # Where to save downloaded images
 SAVE_DIR = "./data/raw"
 os.makedirs(SAVE_DIR, exist_ok=True)
-
-# Your full list of categories
-CATEGORIES = [
-    "sake salmon toro", "sake salmon harasu", "ikura salmon roe",
-    "maguro otoro", "maguro chutoro", "maguro akami",
-    "honmaguro", "minamimaguro", "mebachimaguro",
-    "kihadamaguro", "binnagamaguro", "ahi tuna",
-    "katsuo tataki", "buri hamachi", "hiramasa", "kanpachi",
-    "engawa", "hotate scallop",
-    "amaebi", "botan ebi", "aka ebi", "kurama ebi",
-    "tai madai", "tai kurodai", "tai chidai", "tai kinmedai",
-    "tai ishidai", "tai himedai",
-    "shime saba", "aji", "suzuki sea bass",
-    "hokkigai", "akagai", "tsubagai", "mirugai",
-    "ika squid", "tako octopus", "hiougi scallop",
-    "ika somen", "kujira whale"
-]
 
 def download_images_for_query(query, max_results=10):
     print(f"🔍 Searching: {query} Sashimi")
