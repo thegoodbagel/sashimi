@@ -70,15 +70,9 @@ def main():
 
         # Extract species and part from folder name
         if label_folder.endswith('_sashimi'):
-            base_name = label_folder[:-len('_sashimi')]
+            species = label_folder[:-len('_sashimi')]
         else:
-            base_name = label_folder
-
-        if '_' in base_name:
-            species, part = base_name.rsplit('_', 1)
-        else:
-            species = base_name
-            part = ''
+            species = label_folder
 
         # Skip if species filter is on and doesn't match
         if args.species:
@@ -101,7 +95,6 @@ def main():
                 labels.append({
                     "filename": dst_filename,
                     "species": species,
-                    "part": part
                 })
 
     # Load existing CSV if present and non-empty
