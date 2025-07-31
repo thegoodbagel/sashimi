@@ -104,7 +104,7 @@ def main():
         else:
             raise pd.errors.EmptyDataError
     except pd.errors.EmptyDataError:
-        existing_df = pd.DataFrame(columns=["filename", "species", "part"])
+        existing_df = pd.DataFrame(columns=["filename", "species"])
 
     # Drop existing rows that match the newly processed species
     if args.species:
