@@ -1,10 +1,10 @@
 import os
 from pathlib import Path
-from categories import CATEGORIES
+from data.fish_categories import CATEGORIES
 from query_engines import *
 
 # 📁 Save location
-SAVE_DIR = "./data/raw"
+SAVE_DIR = "./data/fish/raw"
 os.makedirs(SAVE_DIR, exist_ok=True)
 # 🔧 Google API Setup
 os.env.set("GOOGLE_API_KEY" "AIzaSyA_CEuDqQ6hSzSdwbwK1uFzQez_dIAJEM4")
