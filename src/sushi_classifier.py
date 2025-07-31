@@ -5,22 +5,15 @@ from torchvision.models import ResNet18_Weights
 import torch.nn.functional as F
 
 class SushiClassifier(nn.Module):
-    def __init__(self, num_species, num_parts, idx_to_species):
+    def __init__(self, species_list):
         super().__init__()
         weights = ResNet18_Weights.IMAGENET1K_V1
-        self.base_model = models.resnet18(weights=weights)
-        in_features = self.base_model.fc.in_features
-        self.base_model.fc = nn.Identity()  # remove the original FC
-
-        self.species_head = nn.Linear(in_features, num_species)
-        self.part_head = nn.Linear(in_features, num_parts)
-        self.idx_to_species = idx_to_species
+        self.species_classifier = models.resnet18(weights=weights)
+        self.species_classifier.fc = nn.Linear(self.species_classifier.fc.in_features, len(species_list))  # remove the original FC
+        self.idx_to_species = {i: species for i, species in enumerate(species_list)}
 
     def forward(self, x):
-        features = self.base_model(x)
-        species_logits = self.species_head(features)
-        part_logits = self.part_head(features)
-        return species_logits, part_logits
+        return self.base_model(x)
 
 def predict(model, input_image, transform, device):
     model.eval()
@@ -29,7 +22,7 @@ def predict(model, input_image, transform, device):
     image_tensor = transform(input_image).unsqueeze(0).to(device)
 
     with torch.no_grad():
-        species_logits, _ = model(image_tensor)  # only care about species here
+        species_logits = model(image_tensor)
         probs = F.softmax(species_logits, dim=1)
         confidence, pred_idx = torch.max(probs, dim=1)
 
