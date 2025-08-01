@@ -1,4 +1,4 @@
-CATEGORIES = [
+FISH_CATEGORIES = [
     "sake (salmon)",
     "maguro (tuna) otoro", 
     "maguro (tuna) chutoro", 
@@ -24,4 +24,23 @@ CATEGORIES = [
     "mirugai (geoduck clam)",
     "ika (squid)", 
     "tako (octopus)", 
+]
+
+DISH_CATEGORIES = [
+    "sashimi",
+    "nigiri",
+    "maki sushi",
+    "hako sushi",
+    "chirashi",
+    "temari sushi",
+    "inarizushi",
+    "oshizushi",
+]
+
+MAKI_CATEGORIES = [
+    "hosomaki",
+    "futomaki",
+    "uramaki", 
+    "temaki",
+    "gunkan maki"
 ]

@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
-from data.fish_categories import CATEGORIES
-from query_engines import *
+from data.fish_categories import FISH_CATEGORIES, DISH_CATEGORIES, MAKI_CATEGORIES
+from query_engines import google_query, duckduckgo_query, bing_query
 
 # 📁 Save location
 SAVE_DIR = "./data/fish/raw"
@@ -28,8 +28,8 @@ def main():
         query = f"{cat} sashimi"
         save_dir = get_save_path(query)
         start_idx = get_start_index(save_dir)
-        # google_query(query, save_dir, max_results=20, start_idx=start_idx)
-        # duckduckgo_query(query, save_dir, max_results=20, start_idx=start_idx)
+        google_query(query, save_dir, max_results=20, start_idx=start_idx)
+        duckduckgo_query(query, max_results=20, start_idx=start_idx)
         bing_query(query, save_dir, max_results=20, start_idx=start_idx)
 
 if __name__ == "__main__":
