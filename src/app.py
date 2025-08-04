@@ -1,5 +1,6 @@
 import streamlit as st
 import torch
+from streamlit_space import space
 from torchvision import transforms
 from PIL import Image
 from sushi_classifier import SushiClassifier
@@ -25,11 +26,6 @@ transform = transforms.Compose([
 # Page layout
 st.set_page_config(page_title="Sashimi Classifier", layout="wide")
 st.title("Sashimi Classifier 🍣")
-# Page selector
-page = st.radio("Navigate", ["Classifier", "Info Page"], horizontal=True)
-if page == "Info Page":
-    show_info_page()
-    st.stop()
 st.write("Upload an image and get a prediction!")
 
 # Show guide
@@ -83,3 +79,5 @@ if st.session_state.input_image:
 if st.session_state.prediction_done and st.session_state.prediction_result:
     label, confidence = st.session_state.prediction_result
     st.success(f"🍣 Prediction: **{label.title().upper()}** ({confidence * 100:.1f}% confidence)")
+space(lines=4)
+show_info_page()
