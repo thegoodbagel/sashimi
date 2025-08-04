@@ -1,7 +1,6 @@
 import torch.nn as nn
 import torchvision.models as models
 from torchvision.models import ResNet18_Weights
-import torch.nn.functional as F
 
 class SushiClassifier(nn.Module):
     def __init__(self, species_list):
