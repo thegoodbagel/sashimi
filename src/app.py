@@ -2,16 +2,15 @@ import streamlit as st
 import torch
 from torchvision import transforms
 from PIL import Image
-from sushi_classifier import SushiClassifier, predict
-from sushi_guide import show_sushi_guide
+from sushi_classifier import SushiClassifier
+from predictor import predict
+from sushi_guide import show_sushi_guide, show_info_page
 
 # Setup
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 checkpoint = torch.load("./saved_models/best_model.pth", map_location=device)
-model = SushiClassifier(num_species=checkpoint['num_species'], 
-                        num_parts=checkpoint['num_parts'],
-                        idx_to_species=checkpoint['idx_to_species'])
+model = SushiClassifier(species_list=checkpoint['label_list'])
 model.load_state_dict(checkpoint['model_state_dict'])
 model.to(device)
 
@@ -26,6 +25,11 @@ transform = transforms.Compose([
 # Page layout
 st.set_page_config(page_title="Sashimi Classifier", layout="wide")
 st.title("Sashimi Classifier 🍣")
+# Page selector
+page = st.radio("Navigate", ["Classifier", "Info Page"], horizontal=True)
+if page == "Info Page":
+    show_info_page()
+    st.stop()
 st.write("Upload an image and get a prediction!")
 
 # Show guide

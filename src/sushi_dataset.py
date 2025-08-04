@@ -9,6 +9,9 @@ class SushiDataset(Dataset):
         self.label_column = label_column
         self.transform = transform
 
+    def __len__(self):
+        return len(self.df)
+
     def __getitem__(self, idx):
         row = self.df.iloc[idx]
         img_path = os.path.join(self.img_dir, row["filename"])

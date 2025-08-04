@@ -12,4 +12,4 @@ class SushiClassifier(nn.Module):
         self.idx_to_species = {i: species for i, species in enumerate(species_list)}
 
     def forward(self, x):
-        return self.base_model(x)
+        return self.species_classifier(x)

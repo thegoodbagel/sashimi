@@ -14,8 +14,8 @@ import os
 
 def main():
     # Paths
-    label_path = os.getenv("LABEL_PATH", "./data/sushi_labels.csv")
-    image_dir = os.getenv("IMAGE_DIR", "./data/processed")
+    label_path = os.getenv("LABEL_PATH", "./data/fish/sushi_labels.csv")
+    image_dir = os.getenv("IMAGE_DIR", "./data/fish/processed")
     model_save_path = os.getenv("MODEL_SAVE_PATH", "saved_models/best_model.pth")
     target_column = os.getenv("TARGET_COLUMN", "species")
 
@@ -77,7 +77,7 @@ def main():
 
     # Training loop
     for epoch in range(10):
-        train(model, train_loader, species_criterion, part_criterion, optimizer, device, label_to_idx)
+        train(model, train_loader, species_criterion, optimizer, device)
         val_acc = evaluate(model, val_loader, device, label_to_idx)
 
         print(f"Epoch {epoch+1}: Val Accuracy = {val_acc:.2f}")

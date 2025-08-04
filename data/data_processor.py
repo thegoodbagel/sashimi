@@ -5,10 +5,11 @@ import pandas as pd
 import torch
 from torchvision import transforms
 from food_filter import SushiFilterModel, predict  # assuming your model code is in food_filter.py
+import hashlib
 
-RAW_DIR = './data/raw'
-PROCESSED_DIR = './data/processed'
-LABELS_FILE = './data/sushi_labels.csv'
+RAW_DIR = './data/fish/raw'
+PROCESSED_DIR = './data/fish/processed'
+LABELS_FILE = './data/fish/sushi_labels.csv'
 VALID_EXTENSIONS = {'.png', '.jpg', '.jpeg'}
 
 # Parse command line args
@@ -30,6 +31,14 @@ if not args.species:
             os.remove(file_path)
         except Exception as e:
             print(f"Failed to delete {file_path}: {e}")
+    
+    # Clear the CSV file as well
+    if os.path.exists(LABELS_FILE):
+        try:
+            os.remove(LABELS_FILE)
+            print(f"Cleared labels file {LABELS_FILE}")
+        except Exception as e:
+            print(f"Failed to clear labels file: {e}")
 else:
     print(f"Processing only specified species: {args.species}")
     print(f"Preserving contents of {PROCESSED_DIR}")
@@ -41,6 +50,11 @@ model.load_state_dict(torch.load('./data/best_sushi_filter.pth', map_location=de
 model.eval()
 
 CONFIDENCE_THRESHOLD = 0.7
+
+def get_image_hash(image: Image.Image) -> str:
+    hasher = hashlib.sha1()
+    hasher.update(image.tobytes())
+    return hasher.hexdigest()
 
 def process_and_save_image(src_path, dst_path):
     try:
@@ -68,11 +82,12 @@ def main():
         if not os.path.isdir(folder_path):
             continue
 
-        # Extract species and part from folder name
+        # Extract species from folder name
         if label_folder.endswith('_sashimi'):
             species = label_folder[:-len('_sashimi')]
         else:
             species = label_folder
+        print("Species: ", species)
 
         # Skip if species filter is on and doesn't match
         if args.species:
@@ -81,7 +96,7 @@ def main():
                 continue
 
         print(f"Processing species '{species}'")
-
+        seen_hashes = set()
         for fname in os.listdir(folder_path):
             name, ext = os.path.splitext(fname.lower())
             if ext not in VALID_EXTENSIONS:
@@ -91,11 +106,32 @@ def main():
             dst_filename = f"{label_folder}_{name}.jpg"
             dst_path = os.path.join(PROCESSED_DIR, dst_filename)
 
-            if process_and_save_image(src_path, dst_path):
-                labels.append({
-                    "filename": dst_filename,
-                    "species": species,
-                })
+            try:
+                with Image.open(src_path) as img:
+                    img = img.convert("RGB")
+                    img_hash = get_image_hash(img)
+
+                    if img_hash in seen_hashes:
+                        print(f"⚠️ Duplicate image skipped: {src_path}")
+                        continue
+
+                    pred, conf = predict(model, img, device)
+
+                    if pred == 1 and conf >= CONFIDENCE_THRESHOLD:
+                        img.save(dst_path, format='JPEG')
+                        print(f"✅ Saved (passed filter): {dst_path}")
+                        seen_hashes.add(img_hash)
+                        labels.append({
+                            "filename": dst_filename,
+                            "species": species
+                        })
+                    else:
+                        print(f"❌ Filtered out: {src_path} (conf: {conf:.2f})")
+
+            except (UnidentifiedImageError, OSError) as e:
+                print(f"❌ Skipping {src_path}: {e}")
+                continue
+
 
     # Load existing CSV if present and non-empty
     try:
