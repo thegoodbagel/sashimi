@@ -2,7 +2,7 @@ from torch.utils.data import Dataset
 from PIL import Image
 import os
 
-class SushiDataset(Dataset):
+class FishDataset(Dataset):
     def __init__(self, df, img_dir, label_column="species", transform=None):
         self.df = df
         self.img_dir = img_dir

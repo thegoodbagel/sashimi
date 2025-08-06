@@ -3,9 +3,8 @@ import torch
 from torch.utils.data import DataLoader
 from torchvision import transforms
 import pandas as pd
-from sushi_classifier import SushiClassifier
-from sushi_dataset import SushiDataset
-from sklearn.model_selection import train_test_split
+from fish_classifier import FishClassifier
+from fish_dataset import FishDataset
 from torch.nn import CrossEntropyLoss
 from torch.optim import Adam
 from sklearn.model_selection import StratifiedShuffleSplit
@@ -59,15 +58,15 @@ def main():
     ])
 
     # Datasets and loaders
-    train_dataset = SushiDataset(train_df, image_dir, target_column, transform=transform)
-    val_dataset = SushiDataset(val_df, image_dir, target_column, transform=transform)
+    train_dataset = FishDataset(train_df, image_dir, target_column, transform=transform)
+    val_dataset = FishDataset(val_df, image_dir, target_column, transform=transform)
 
     train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=4, shuffle=False)
 
     # Model, losses, optimizer
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = SushiClassifier(label_list).to(device)
+    model = FishClassifier(label_list).to(device)
 
     species_criterion = CrossEntropyLoss()
     part_criterion = CrossEntropyLoss()

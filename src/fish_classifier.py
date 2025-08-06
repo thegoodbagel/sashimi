@@ -2,7 +2,7 @@ import torch.nn as nn
 import torchvision.models as models
 from torchvision.models import ResNet18_Weights
 
-class SushiClassifier(nn.Module):
+class FishClassifier(nn.Module):
     def __init__(self, species_list):
         super().__init__()
         weights = ResNet18_Weights.IMAGENET1K_V1
