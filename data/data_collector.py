@@ -1,15 +1,15 @@
 import os
 from pathlib import Path
-from data.fish_categories import FISH_CATEGORIES, DISH_CATEGORIES, MAKI_CATEGORIES
-from query_engines import google_query, duckduckgo_query, bing_query
+from categories import FISH_CATEGORIES, DISH_CATEGORIES
+from query_engines import google_query, duckduckgo_query
+
 
 # 📁 Save location
-SAVE_DIR = "./data/fish/raw"
+SAVE_DIR = "./data/dish/raw"
 os.makedirs(SAVE_DIR, exist_ok=True)
 # 🔧 Google API Setup
-os.env.set("GOOGLE_API_KEY" "AIzaSyA_CEuDqQ6hSzSdwbwK1uFzQez_dIAJEM4")
-os.env.set("GOOGLE_CSE_ID", "d539947c708134729")
-os.env.set("BING_API_KEY", )
+os.environ["GOOGLE_API_KEY"] = "AIzaSyDjVzmB5LJ8B6_meRGVF6u0YQtfl4yBLfo"
+os.environ["GOOGLE_CSE_ID"] = "d539947c708134729"
 
 # 🧠 Helpers
 def get_save_path(query: str):
@@ -24,13 +24,12 @@ def get_start_index(path):
 
 # 🔁 Main
 def main():
-    for cat in CATEGORIES:
-        query = f"{cat} sashimi"
+    for cat in DISH_CATEGORIES:
+        query = f"{cat}"
         save_dir = get_save_path(query)
-        start_idx = get_start_index(save_dir)
-        google_query(query, save_dir, max_results=20, start_idx=start_idx)
-        duckduckgo_query(query, max_results=20, start_idx=start_idx)
-        bing_query(query, save_dir, max_results=20, start_idx=start_idx)
+        # start_idx = get_start_index(save_dir)
+        google_query(query, save_dir, 20, 0)
+        duckduckgo_query(query, save_dir, 20, 20)
 
 if __name__ == "__main__":
     main()
