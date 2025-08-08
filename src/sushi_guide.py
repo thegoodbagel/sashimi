@@ -79,29 +79,3 @@ def show_sushi_guide():
         for name, desc in sashimi_info.items():
             with st.sidebar.expander(name):
                 st.markdown(desc)
-
-import streamlit as st
-
-def show_info_page():
-    st.header("🍱 About This App")
-    st.markdown("""
-    Hi! This website doesn't just classify sushi—it includes several types of **Japanese seafood dishes**, including **sashimi**!
-
-    ---
-    ### 🍚 What is Sushi, Really?
-    The word **sushi** actually refers to **rice seasoned with sweetened vinegar**, usually combined with various ingredients. While raw seafood is most common, sushi doesn't always include fish!
-
-    ---
-    ### 🍽️ Dish Categories
-
-    - **Sashimi**: Thinly sliced raw seafood, served without rice.
-    - **Nigiri**: Hand-formed rice topped with a slice of seafood.
-    - **Maki Sushi**: Rolled sushi with rice and fillings wrapped in seaweed.
-    - **Hako Sushi**: Pressed sushi made in a box mold.
-    - **Chirashi**: A bowl of sushi rice topped with assorted ingredients.
-    - **Temari Sushi**: Ball-shaped sushi made by hand.
-    - **Inarizushi**: Rice stuffed into sweet fried tofu pouches.
-    - **Oshizushi**: Box-pressed sushi with layers of fish and rice.
-
-    """)
-

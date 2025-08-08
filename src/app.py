@@ -5,7 +5,8 @@ from torchvision import transforms
 from PIL import Image
 from fish_classifier import SushiClassifier
 from predictor import predict
-from sushi_guide import show_sushi_guide, show_info_page
+from sushi_guide import show_sushi_guide
+from sushi_info import show_info_page
 
 # Setup
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
