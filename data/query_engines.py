@@ -39,13 +39,13 @@ def duckduckgo_query(query, save_path, max_results=20, start_idx=0):
 
 
 # 🔍 Google
-def google_query(query, save_path, max_results=20, start_idx=0, max_workers=5):
+def google_query(query, save_path, max_results=20, start_idx=0):
     GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
     GOOGLE_CSE_ID = os.getenv("GOOGLE_CSE_ID")
     print(f"🔍 Google Search: {query}")
 
     jobs = []
-    for start in range(20+1, 20+max_results, 10):
+    for start in range(1, max_results, 10):
         params = {
             "q": query,
             "cx": GOOGLE_CSE_ID,
@@ -67,13 +67,12 @@ def google_query(query, save_path, max_results=20, start_idx=0, max_workers=5):
                 continue
             ext = os.path.splitext(image_url)[-1].split("?")[0].lower() or ".jpg"
             ext = ext if ext in [".jpg", ".jpeg", ".png"] else ".jpg"
-            filename = os.path.join(save_path, f"{query.replace(' ', '_')}_{start+i}{ext}")
+            filename = os.path.join(save_path, f"{query.replace(' ', '_')}_{start_idx+start+i}{ext}")
             jobs.append((image_url, filename))
         time.sleep(1.5)
 
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        for image_url, filename in jobs:
-            executor.submit(download_image, image_url, filename)
+    for image_url, filename in jobs:
+        download_image(image_url, filename)
 
 
 def bing_query(query, save_path, max_results=20, start_idx=0):
