@@ -29,7 +29,7 @@ FISH_CATEGORIES = [
 DISH_CATEGORIES = [
     "sashimi",
     "nigiri",
-    "hako",
+    "hakozushi",
     "chirashi",
     "temari sushi",
     "inarizushi",
