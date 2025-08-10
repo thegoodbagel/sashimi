@@ -4,12 +4,12 @@ from PIL import Image, UnidentifiedImageError
 import pandas as pd
 import torch
 from torchvision import transforms
-from food_filter import SushiFilterModel, predict  # assuming your model code is in food_filter.py
+from data.filter.food_filter import SushiFilterModel, predict
 import hashlib
 
-RAW_DIR = './data/fish/raw'
-PROCESSED_DIR = './data/fish/processed'
-LABELS_FILE = './data/fish/sushi_labels.csv'
+RAW_DIR = './data/dish/raw'
+PROCESSED_DIR = './data/fidishsh/processed'
+LABELS_FILE = './data/dish/sushi_labels.csv'
 VALID_EXTENSIONS = {'.png', '.jpg', '.jpeg'}
 
 # Parse command line args
