@@ -4,12 +4,13 @@ from PIL import Image, UnidentifiedImageError
 import pandas as pd
 import torch
 from torchvision import transforms
-from data.filter.food_filter import SushiFilterModel, predict
+from filter.food_filter import SushiFilterModel, predict
 import hashlib
 
 RAW_DIR = './data/dish/raw'
-PROCESSED_DIR = './data/fidishsh/processed'
+PROCESSED_DIR = './data/dish/processed'
 LABELS_FILE = './data/dish/sushi_labels.csv'
+BEST_MODEL_PATH = './data/filter/best_sushi_filter.pth'
 VALID_EXTENSIONS = {'.png', '.jpg', '.jpeg'}
 
 # Parse command line args
@@ -46,10 +47,10 @@ else:
 # Load model & device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = SushiFilterModel().to(device)
-model.load_state_dict(torch.load('./data/best_sushi_filter.pth', map_location=device))
+model.load_state_dict(torch.load(BEST_MODEL_PATH, map_location=device))
 model.eval()
 
-CONFIDENCE_THRESHOLD = 0.7
+CONFIDENCE_THRESHOLD = 0.6
 
 def get_image_hash(image: Image.Image) -> str:
     hasher = hashlib.sha1()

@@ -84,11 +84,6 @@ dish_categories = [
         "image": "/assets/maki.jpg"
     },
     {
-        "name": "Hako Sushi",
-        "desc": "Pressed sushi made in a box mold.",
-        "image": "/assets/hako.jpg"
-    },
-    {
         "name": "Chirashi",
         "desc": "A bowl of sushi rice topped with assorted ingredients.",
         "image": "/assets/chirashi.jpg"
@@ -105,7 +100,7 @@ dish_categories = [
     },
     {
         "name": "Oshizushi",
-        "desc": "Box-pressed sushi with layers of fish and rice.",
+        "desc": "Pressed sushi with layers of fish and rice into a box-like mold.",
         "image": "/assets/oshizushi.jpg"
     }
 ]
