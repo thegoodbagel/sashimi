@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#" lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WTMBT994');</script>
+<!-- End Google Tag Manager -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<meta name="format-detection" content="telephone=no">
+<title>Global｜Aomori Products</title>
+<link rel="canonical" href="https://www.umai-aomori.jp/en/index.html">
+<meta name="description" content="Explore Aomori's finest: seasonal ingredients, unique local products, and farm-fresh goods. Discover, shop, and savor the flavors of Aomori, nestled between rich seas and verdant mountains. Enjoy safe, fresh seafood, fruits, and vegetables from our h">
+<meta name="author" content="©運営者名">
+<meta name="theme-color" content="#bf4a32">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Aomori products">
+<meta property="og:url" content="https://www.umai-aomori.jp/en/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Global｜Aomori Products">
+<meta property="og:description" content="Explore Aomori's finest: seasonal ingredients, unique local products, and farm-fresh goods. Discover, shop, and savor the flavors of Aomori, nestled between rich seas and verdant mountains. Enjoy safe, fresh seafood, fruits, and vegetables from our h">
+<meta property="og:image" content="https://www.umai-aomori.jp/common/images/ogImg.png">
+<meta name="apple-mobile-web-app-title" content="Aomori products">
+<link rel="apple-touch-icon" href="https://www.umai-aomori.jp/common/images/touchIcon.png">
+<link rel="icon" href="https://www.umai-aomori.jp/common/images/favicon.svg">
+<link rel="stylesheet" href="/common/css/default.css">
+<link rel="stylesheet" href="/common/css/base.css">
+<link rel="stylesheet" href="/js/slick/slick.min.css">
+<link rel="stylesheet" href="css/index.css">
+</head>
+<body id="body" class="do scrollTop">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WTMBT994"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div id="wrapper">
+<header id="header">
+	<h1 id="siteName"><a href="/en/index.html">Aomori products</a></h1>
+</header>
+<div id="pagePath">
+	<ul>
+		<li><a href="/en/index.html">HOME</a></li>
+	</ul>
+</div>
+<main id="main">
+	<div id="hero">
+		<div id="heroSlide">
+			<dl>
+				<dt></dt>
+				<dd><img src="/asset/top/mv01.jpg" alt="[caption]" width="100" height="100"></dd>
+			</dl>
+			<!--
+			<dl>
+				<dt>[caption]</dt>
+				<dd><img src="[url]" alt="[caption]" width="100" height="100"></dd>
+				<dd><a href="[url]" target="_self">[url]</a></dd>
+			</dl>
+			-->
+		</div>
+	</div>
+	<article id="guide">
+		<h2>AOMORI SPECIALTY GUIDE</h2>
+		<div id="guideList">
+			<section>
+				<h3>Vegetables</h3>
+				<div><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/specialtygoods-pbook/index_1_2_1.html" target="_self">specialtygoods-pbook/index_1_2_1.html</a></div>
+				<figure><img src="/lsc/upfile/food/0000/0001/1_1_m.jpg" alt="Vegetables" width="100" height="100" loading="lazy"></figure>
+			</section>
+			<section>
+				<h3>Wild Edibles</h3>
+				<div><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/specialtygoods-pbook/index_1_2_4.html" target="_self">specialtygoods-pbook/index_1_2_4.html</a></div>
+				<figure><img src="/lsc/upfile/food/0000/0004/4_1_m.jpg" alt="Wild Edibles" width="100" height="100" loading="lazy"></figure>
+			</section>
+			<section>
+				<h3>Fruits</h3>
+				<div><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/specialtygoods-pbook/index_1_2_2.html" target="_self">specialtygoods-pbook/index_1_2_2.html</a></div>
+				<figure><img src="/lsc/upfile/food/0000/0002/2_1_m.jpg" alt="Fruits" width="100" height="100" loading="lazy"></figure>
+			</section>
+			<section>
+				<h3>Fish</h3>
+				<div><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/specialtygoods-pbook/index_1_2_6.html" target="_self">specialtygoods-pbook/index_1_2_6.html</a></div>
+				<figure><img src="/lsc/upfile/food/0000/0006/6_1_m.jpg" alt="Fish" width="100" height="100" loading="lazy"></figure>
+			</section>
+			<section>
+				<h3>Shellfish, Seaweed & Other Seafood</h3>
+				<div><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/specialtygoods-pbook/index_1_2_7.html" target="_self">specialtygoods-pbook/index_1_2_7.html</a></div>
+				<figure><img src="/lsc/upfile/food/0000/0007/7_1_m.jpg" alt="Shellfish, Seaweed &amp; Other Seafood" width="100" height="100" loading="lazy"></figure>
+			</section>
+			<section>
+				<h3>Meat & Dairy Prducts</h3>
+				<div><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/specialtygoods-pbook/index_1_2_5.html" target="_self">specialtygoods-pbook/index_1_2_5.html</a></div>
+				<figure><img src="/lsc/upfile/food/0000/0005/5_1_m.jpg" alt="Meat &amp; Dairy Prducts" width="100" height="100" loading="lazy"></figure>
+			</section>
+			<section>
+				<h3>Rice & Grains</h3>
+				<div><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/specialtygoods-pbook/index_1_2_3.html" target="_self">specialtygoods-pbook/index_1_2_3.html</a></div>
+				<figure><img src="/lsc/upfile/food/0000/0003/3_1_m.jpg" alt="Rice &amp; Grains" width="100" height="100" loading="lazy"></figure>
+			</section>
+			<section>
+				<h3>Alcoholic Beverages & Drinks</h3>
+				<div><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/specialtygoods-pbook/index_1_2_8.html" target="_self">specialtygoods-pbook/index_1_2_8.html</a></div>
+				<figure><img src="/lsc/upfile/food/0000/0008/8_1_m.jpg" alt="Alcoholic Beverages &amp; Drinks" width="100" height="100" loading="lazy"></figure>
+			</section>
+		</div>
+		<div id="guideLink">
+			<a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/specialtygoods-pbook/index.html" target="_self">View AOMORI SPECIALTY GUIDE</a>
+		</div>
+	</article>
+	<article id="special">
+		<h2>Our special products</h2>
+		<div>
+			<p>
+				Here we introduce the very best of our products nurtured in the rich natural environment of Aomori Prefecture. Making the most of Aomori's weather and climate, we work to nurture delicious produce. Producers are proud to bring you only the very best foods for you to enjoy.
+			</p>
+		</div>
+		<div id="specialLink">
+			<a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/pickup/index.html" target="_self">View Featured Articles</a>
+			<a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/calendar/index.html" target="_self">View Seasonal Foods Calendar</a>
+		</div>
+	</article>
+	<article id="products">
+		<h2>Aomori Products</h2>
+		<div id="productsList">
+			<section>
+				<h3>View Products</h3>
+				<div><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/product/index.html" target="_self">https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/product/index.html</a></div>
+			</section>
+			<section>
+				<h3>Shopping Guide</h3>
+				<div><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/shop/index.html" target="_self">https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/shop/index.html</a></div>
+				<figure><img src="/asset/top/shopping.jpg" alt="Shopping Guide" width="100" height="100" loading="lazy"></figure>
+			</section>
+		</div>
+	</article>
+	<article id="local">
+		<h2>LOCAL CUISINE</h2>
+		<div>
+			<div>
+				<p>
+					Aomori Prefecture offers a variety of delicious dishes made from fresh seafood and produce from its fertile lands. The diverse climate creates unique local cuisines, including rice, grains, root vegetables, and seafood. Traditional cooking methods highlight these specialties, making them true treasures of Aomori. Be sure to taste the flavors of this remarkable region!
+				</p>
+			</div>
+			<div id="localLink">
+				<a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/local-cuisine/index.html" target="_self">View Local Cuisine List</a>
+			</div>
+			<figure><img src="/asset/top/localCuisine.jpg" alt="LOCAL CUISINE" width="100" height="100" loading="lazy"></figure>
+		</div>
+	</article>
+	<article id="restaurant">
+		<h2>RESTAURANT</h2>
+		<div id="restaurantLink">
+			<a href="https://gurunavi.com/en/all/aomori" target="_blank">Find on GURUNAVI </a>
+			<a href="https://tabelog.com/en/aomori/" target="_blank">Find on Tabelog</a>
+			<a href="https://global.hotpepper.jp/en/stores/search/eyJzZXJ2aWNlQXJlYSI6IlNBNTEiLCJwZXJzb25OdW1iZXIiOjIsInJlc2VydmVEYXRlIjoiMjAyNDEyMjgiLCJyZXNlcnZlVGltZSI6IjE4MDAifQ" target="_blank">Find on HOT PEPPER</a>
+		</div>
+		<figure><img src="/asset/top/restaurant.jpg" alt="RESTAURANT" width="100" height="100" loading="lazy"></figure>
+	</article>
+	<article id="information">
+		<h2><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/information/index.html" target="_blank">Information</a></h2>
+		<aside id="informationSns">
+			<h3>SNS</h3>
+			<div>
+				<ul>
+					<li><a href="https://www.instagram.com/aomorifood/" target="_blank">Instagram</a></li>
+					<li><a href="https://www.facebook.com/aomorifood/" target="_blank">Facebook</a></li>
+					<li><a href="https://twitter.com/umaiaomori" target="_blank">X</a></li>
+					<li><a href="https://www.youtube.com/channel/UCA2ooeKbxnN4LiEVknaKWSA/videos" target="_blank">Youtube</a></li>
+				</ul>
+			</div>
+		</aside>
+		<aside id="informationBanner">
+			<h3>PR</h3>
+			<div>
+				<ul>
+					<li><a href="https://aomori-tourism.com/en/" target="_blank"><img src="https://aomori-tourism.com/common/images/logo-en.svg" alt="Amazing aomori" width="100" height="100" loading="lazy"></a></li>
+				</ul>
+			</div>
+		</aside>
+	</article>
+</main>
+<nav id="nav">
+	<h2>Menu</h2>
+	<div id="navGlobal">
+		<dl>
+			<dt>Discover Delicious Foods of Aomori</dt>
+			<dd><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/pickup/index.html">Recommended Features</a></dd>
+			<dd><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/specialtygoods-pbook/index.html">Aomori Specialty Guide</a></dd>
+			<dd><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/calendar/index.html">Seasonal Foods Calendar</a></dd>
+		</dl>
+		<dl>
+			<dt>Purchase</dt>
+			<dd><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/product/index.html">View Products</a></dd>
+			<dd><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/shop/index.html">Shopping Guide</a></dd>
+		</dl>
+		<dl>
+			<dt>Eat</dt>
+			<dd><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/local-cuisine/index.html">Local Cuisine</a></dd>
+		</dl>
+	</div>
+	<div id="navBusiness">
+		<dl>
+			<dt>For Businesses</dt>
+			<dd><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/download-gallery/index.html">Image Download</a></dd>
+			<dd><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/download">Document Download</a></dd>
+		</dl>
+	</div>
+	<div id="navExtra">
+		<ul>
+			<li><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/favorite/index.html">Favorites</a></li>
+			<li><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/pamphlet/index.html">Brochure</a></li>
+			<li><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/site">About This Site</a></li>
+			<li><a href="https://translate.google.com/translate?sl=auto&tl=en&u=https://www.umai-aomori.jp/form/contact/">Contact Us</a></li>
+		</ul>
+	</div>
+	<div id="navLanguage">
+		<dl>
+			<dt>Global</dt>
+			<dd><a href="/">Japanese</a></dd>
+		</dl>
+	</div>
+	<div id="navSearch">
+		<form>
+			<input type="text">
+			<button>Search</button>
+		</form>
+	</div>
+</nav>
+<footer id="footer">
+	<address id="fAddress">
+		<h3>Aomori Products Marketing and Export Promotion Division</h3>
+		<div>
+			<p>
+				Aomori Prefectural Government<br>
+				Department of Tourism Trade,Flight,and International Exchange<br>
+			</p>
+			<p>
+				〒030-8570  1-1-1 Nagashima, Aomori City, Aomori Prefecture
+			</p>
+		</div>
+	</address>
+	<div id="copyright">
+		<p>Copyright Aomori Prefectural Government All Rights Reserved.</p>
+	</div>
+</footer>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/common/js/default.js"></script>
+<script src="/common/js/base.js"></script>
+<script src="/js/slick/slick.min.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
