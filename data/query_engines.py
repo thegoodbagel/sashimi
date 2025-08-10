@@ -45,7 +45,7 @@ def google_query(query, save_path, max_results=20, start_idx=0):
     print(f"🔍 Google Search: {query}")
 
     jobs = []
-    for start in range(40+1, 40+max_results, 10):
+    for start in range(1, max_results, 10):
         params = {
             "q": query,
             "cx": GOOGLE_CSE_ID,

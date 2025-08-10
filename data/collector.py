@@ -29,7 +29,7 @@ def main():
         save_dir = get_save_path(query)
         # start_idx = get_start_index(save_dir)
         google_query(query, save_dir, 20, 0)
-        # duckduckgo_query(query, save_dir, 20, 20)
+        # duckduckgo_query(query, save_dir, 20, 0)
 
 if __name__ == "__main__":
     main()

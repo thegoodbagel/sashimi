@@ -31,7 +31,7 @@ DISH_CATEGORIES = [
     # "nigiri",
     # "hakozushi",
     # "chirashi",
-    # "temari sushi",
+    "temari sushi",
     # "inarizushi",
     # "oshizushi",
     # "hosomaki",
