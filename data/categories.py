@@ -27,15 +27,15 @@ FISH_CATEGORIES = [
 ]
 
 DISH_CATEGORIES = [
-    "sashimi",
-    "nigiri",
-    "hakozushi",
-    "chirashi",
-    "temari sushi",
-    "inarizushi",
-    "oshizushi",
-    "hosomaki",
-    "futomaki",
+    # "sashimi",
+    # "nigiri",
+    # "hakozushi",
+    # "chirashi",
+    # "temari sushi",
+    # "inarizushi",
+    # "oshizushi",
+    # "hosomaki",
+    # "futomaki",
     "uramaki", 
     "temaki",
     "gunkan maki"
