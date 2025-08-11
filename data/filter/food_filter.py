@@ -3,9 +3,10 @@ import torch
 import torch.nn as nn
 from torchvision import models, transforms
 from torchvision.models import mobilenet_v2, MobileNet_V2_Weights
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset, DataLoader, Subset
 from PIL import Image
-import random
+import numpy as np
+
 
 SUSHI_DIR = './data/filter/sushi_examples'
 NONSUSHI_DIR = './data/filter/non_sushi_examples'
@@ -89,12 +90,27 @@ def main():
 
     dataset = SushiFilterDataset(SUSHI_DIR, NONSUSHI_DIR, transform=transform)
 
-    # Split train/test 80/20
-    total_len = len(dataset)
-    train_len = int(0.8 * total_len)
-    val_len = total_len - train_len
-    train_set, val_set = torch.utils.data.random_split(dataset, [train_len, val_len])
+    # Get indices of sushi and nonsushi
+    sushi_indices = list(range(dataset.length))
+    nonsushi_indices = list(range(dataset.length, dataset.length * 2))
 
+    # Shuffle
+    np.random.shuffle(sushi_indices)
+    np.random.shuffle(nonsushi_indices)
+
+    # Split each class 80/20
+    sushi_train_len = int(0.8 * len(sushi_indices))
+    nonsushi_train_len = int(0.8 * len(nonsushi_indices))
+
+    train_indices = sushi_indices[:sushi_train_len] + nonsushi_indices[:nonsushi_train_len]
+    val_indices   = sushi_indices[sushi_train_len:] + nonsushi_indices[nonsushi_train_len:]
+
+    # Shuffle final sets (so sushi/nonsushi are mixed)
+    np.random.shuffle(train_indices)
+    np.random.shuffle(val_indices)
+
+    train_set = Subset(dataset, train_indices)
+    val_set = Subset(dataset, val_indices)
     train_loader = DataLoader(train_set, batch_size=8, shuffle=True)
     val_loader = DataLoader(val_set, batch_size=8, shuffle=False)
 

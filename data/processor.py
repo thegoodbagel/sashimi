@@ -14,17 +14,17 @@ BEST_MODEL_PATH = './data/filter/best_sushi_filter.pth'
 VALID_EXTENSIONS = {'.png', '.jpg', '.jpeg'}
 
 # Parse command line args
-parser = argparse.ArgumentParser(description="Process sushi images by species filter.")
+parser = argparse.ArgumentParser(description="Process sushi images by type filter.")
 parser.add_argument(
-    "-s", "--species",
+    "-t", "--type",
     nargs="+",
-    help="List of sushi species to process, e.g. -s salmon maguro hokkigai"
+    help="List of element types to process, e.g. for sushi, -t salmon maguro hokkigai"
 )
 args = parser.parse_args()
 
-# If no species specified, clear processed directory; otherwise preserve it
+# If no types specified, clear processed directory; otherwise preserve it
 os.makedirs(PROCESSED_DIR, exist_ok=True)
-if not args.species:
+if not args.type:
     print(f"Clearing processed directory {PROCESSED_DIR} (full reprocess)")
     for filename in os.listdir(PROCESSED_DIR):
         file_path = os.path.join(PROCESSED_DIR, filename)
@@ -41,7 +41,7 @@ if not args.species:
         except Exception as e:
             print(f"Failed to clear labels file: {e}")
 else:
-    print(f"Processing only specified species: {args.species}")
+    print(f"Processing only specified type: {args.type}")
     print(f"Preserving contents of {PROCESSED_DIR}")
 
 # Load model & device
@@ -83,20 +83,17 @@ def main():
         if not os.path.isdir(folder_path):
             continue
 
-        # Extract species from folder name
-        if label_folder.endswith('_sashimi'):
-            species = label_folder[:-len('_sashimi')]
-        else:
-            species = label_folder
-        print("Species: ", species)
+        # Extract type from folder name
+        type = label_folder
+        print("type: ", type)
 
-        # Skip if species filter is on and doesn't match
-        if args.species:
-            match_found = any(filter_str.lower() in label_folder.lower() for filter_str in args.species)
+        # Skip if type filter is on and doesn't match
+        if args.type:
+            match_found = any(filter_str.lower() in label_folder.lower() for filter_str in args.type)
             if not match_found:
                 continue
 
-        print(f"Processing species '{species}'")
+        print(f"Processing type '{type}'")
         seen_hashes = set()
         for fname in os.listdir(folder_path):
             name, ext = os.path.splitext(fname.lower())
@@ -124,7 +121,7 @@ def main():
                         seen_hashes.add(img_hash)
                         labels.append({
                             "filename": dst_filename,
-                            "species": species
+                            "type": type
                         })
                     else:
                         print(f"❌ Filtered out: {src_path} (conf: {conf:.2f})")
@@ -141,12 +138,12 @@ def main():
         else:
             raise pd.errors.EmptyDataError
     except pd.errors.EmptyDataError:
-        existing_df = pd.DataFrame(columns=["filename", "species"])
+        existing_df = pd.DataFrame(columns=["filename", "type"])
 
-    # Drop existing rows that match the newly processed species
-    if args.species:
-        for s in args.species:
-            existing_df = existing_df[~existing_df["species"].str.lower().str.contains(s.lower(), na=False)]
+    # Drop existing rows that match the newly processed type
+    if args.type:
+        for s in args.type:
+            existing_df = existing_df[~existing_df["type"].str.lower().str.contains(s.lower(), na=False)]
 
     # Add new labels
     df_new = pd.DataFrame(labels)

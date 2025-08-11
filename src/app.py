@@ -12,9 +12,9 @@ from sushi_info import show_info_page
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 checkpoint = torch.load("./saved_models/best_model.pth", map_location=device)
-model = SushiClassifier(species_list=checkpoint['label_list'])
-model.load_state_dict(checkpoint['model_state_dict'])
-model.to(device)
+sushi_classifier = SushiClassifier(species_list=checkpoint['label_list'])
+sushi_classifier.load_state_dict(checkpoint['model_state_dict'])
+sushi_classifier.to(device)
 
 # Image transform
 transform = transforms.Compose([
@@ -25,8 +25,8 @@ transform = transforms.Compose([
 ])
 
 # Page layout
-st.set_page_config(page_title="Sashimi Classifier", layout="wide")
-st.title("Sashimi Classifier 🍣")
+st.set_page_config(page_title="Sushi Classifier", layout="wide")
+st.title("Sushi Classifier 🍣")
 st.write("Upload an image and get a prediction!")
 
 # Show guide
@@ -71,7 +71,7 @@ if st.session_state.input_image:
     st.image(st.session_state.input_image, caption='Input Image', use_column_width=True)
 
     # Predict button
-    if st.button("🔍 Predict Sashimi"):
+    if st.button("🔍 Predict Sushi"):
         label, confidence = predict(model, st.session_state.input_image, transform, device)
         st.session_state.prediction_result = (label, confidence)
         st.session_state.prediction_done = True

@@ -13,10 +13,10 @@ import os
 
 def main():
     # Paths
-    label_path = os.getenv("LABEL_PATH", "./data/fish/sushi_labels.csv")
-    image_dir = os.getenv("IMAGE_DIR", "./data/fish/processed")
-    model_save_path = os.getenv("MODEL_SAVE_PATH", "saved_models/best_model.pth")
-    target_column = os.getenv("TARGET_COLUMN", "species")
+    label_path = os.getenv("LABEL_PATH", "./data/dish/sushi_labels.csv")
+    image_dir = os.getenv("IMAGE_DIR", "./data/dish/processed")
+    model_save_path = os.getenv("MODEL_SAVE_PATH", "saved_models/fish/best_model.pth")
+    target_column = os.getenv("TARGET_COLUMN", "type")
 
     os.makedirs(os.path.dirname(model_save_path), exist_ok=True)
 
@@ -124,7 +124,7 @@ def evaluate(model, dataloader, device, species_to_idx):
             correct_species += (pred_species == species_labels).sum().item()
             total += species_labels.size(0)
     species_acc = correct_species / total
-    print(f"🔍 Species Accuracy: {species_acc:.2f}")
+    print(f"Accuracy: {species_acc:.2f}")
     return (species_acc) / 2
 
 
