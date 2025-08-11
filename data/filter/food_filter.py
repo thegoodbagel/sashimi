@@ -4,36 +4,45 @@ import torch.nn as nn
 from torchvision import models, transforms
 from torchvision.models import mobilenet_v2, MobileNet_V2_Weights
 from torch.utils.data import Dataset, DataLoader, Subset
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 import numpy as np
+import random
 
 
 SUSHI_DIR = './data/filter/sushi_examples'
 NONSUSHI_DIR = './data/filter/non_sushi_examples'
 BEST_MODEL_PATH = './data/filter/best_sushi_filter.pth'
 
-# --- Dataset ---
 class SushiFilterDataset(Dataset):
     def __init__(self, sushi_dir, nonsushi_dir, transform=None):
-        self.sushi_images = [os.path.join(sushi_dir, f) for f in os.listdir(sushi_dir) if f.lower().endswith(('jpg','png','jpeg'))]
-        self.nonsushi_images = [os.path.join(nonsushi_dir, f) for f in os.listdir(nonsushi_dir) if f.lower().endswith(('jpg','png','jpeg'))]
+        self.sushi_images = [os.path.join(sushi_dir, f) for f in os.listdir(sushi_dir) 
+                             if f.lower().endswith(('jpg','png','jpeg'))]
+        self.nonsushi_images = [os.path.join(nonsushi_dir, f) for f in os.listdir(nonsushi_dir) 
+                                if f.lower().endswith(('jpg','png','jpeg'))]
         self.transform = transform
 
-        # Balance dataset by using min count
-        self.length = min(len(self.sushi_images), len(self.nonsushi_images))
-
     def __len__(self):
-        return self.length * 2  # sushi + nonsushi balanced
+        return len(self.sushi_images) + len(self.nonsushi_images)
 
     def __getitem__(self, idx):
-        if idx < self.length:
+        if idx < len(self.sushi_images):
             img_path = self.sushi_images[idx]
-            label = 1  # sushi/sashimi
+            label = 1  # sushi
         else:
-            img_path = self.nonsushi_images[idx - self.length]
-            label = 0  # not sushi
+            img_path = self.nonsushi_images[idx - len(self.sushi_images)]
+            label = 0  # non-sushi
 
-        image = Image.open(img_path).convert('RGB')
+        try:
+            image = Image.open(img_path).convert('RGB')
+        except UnidentifiedImageError:
+            # Pick another random image from the same class
+            if label == 1:
+                new_idx = random.randint(0, len(self.sushi_images) - 1)
+                return self.__getitem__(new_idx)
+            else:
+                new_idx = len(self.sushi_images) + random.randint(0, len(self.nonsushi_images) - 1)
+                return self.__getitem__(new_idx)
+
         if self.transform:
             image = self.transform(image)
 
@@ -69,14 +78,36 @@ def evaluate(model, dataloader, device):
     model.eval()
     correct = 0
     total = 0
+
+    # Track per-class stats
+    class_correct = {0: 0, 1: 0}  # 0 = non-sushi, 1 = sushi
+    class_total = {0: 0, 1: 0}
+
     with torch.no_grad():
         for images, labels in dataloader:
             images, labels = images.to(device), labels.to(device)
             outputs = model(images)
             _, preds = torch.max(outputs, 1)
+
             correct += (preds == labels).sum().item()
             total += labels.size(0)
-    return correct / total
+
+            # Update per-class counts
+            for label, pred in zip(labels, preds):
+                label_int = label.item()
+                class_total[label_int] += 1
+                if pred.item() == label_int:
+                    class_correct[label_int] += 1
+
+    overall_acc = correct / total
+
+    # Print per-class accuracy
+    for cls in [0, 1]:
+        acc = class_correct[cls] / class_total[cls] if class_total[cls] > 0 else 0
+        cls_name = "Non-Sushi" if cls == 0 else "Sushi"
+        print(f"  {cls_name} accuracy: {acc:.4f} ({class_correct[cls]}/{class_total[cls]})")
+
+    return overall_acc
 
 # --- Main ---
 def main():
@@ -91,8 +122,11 @@ def main():
     dataset = SushiFilterDataset(SUSHI_DIR, NONSUSHI_DIR, transform=transform)
 
     # Get indices of sushi and nonsushi
-    sushi_indices = list(range(dataset.length))
-    nonsushi_indices = list(range(dataset.length, dataset.length * 2))
+    sushi_count = len(dataset.sushi_images)
+    nonsushi_count = len(dataset.nonsushi_images)
+
+    sushi_indices = list(range(sushi_count))
+    nonsushi_indices = list(range(sushi_count, sushi_count + nonsushi_count))
 
     # Shuffle
     np.random.shuffle(sushi_indices)

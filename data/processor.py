@@ -7,9 +7,9 @@ from torchvision import transforms
 from filter.food_filter import SushiFilterModel, predict
 import hashlib
 
-RAW_DIR = './data/dish/raw'
-PROCESSED_DIR = './data/dish/processed'
-LABELS_FILE = './data/dish/sushi_labels.csv'
+RAW_DIR = './data/fish/raw'
+PROCESSED_DIR = './data/fish/processed'
+LABELS_FILE = './data/fish/sushi_labels.csv'
 BEST_MODEL_PATH = './data/filter/best_sushi_filter.pth'
 VALID_EXTENSIONS = {'.png', '.jpg', '.jpeg'}
 
