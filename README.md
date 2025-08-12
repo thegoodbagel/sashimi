@@ -8,7 +8,7 @@ Too many times I've eaten something delicious whilst not knowing anything about 
 
 <p align="center">
   <img src="website_sample.png" height="190" style="margin-right: 10px; border: 1px solid black;" />
-  <img src="website_sample2.png" height="190" style="margin-left: 10px; border: 1px solid black;/>
+  <img src="website_sample2.png" height="190" style="margin-left: 10px; border: 1px solid black;"/>
 </p>
 
 ---
