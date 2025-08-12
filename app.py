@@ -73,7 +73,7 @@ with st.container():
 
 # Display image preview if available
 if st.session_state.input_image:
-    st.image(st.session_state.input_image, caption='Input Image', use_column_width=True)
+    st.image(st.session_state.input_image, caption='Input Image', use_container_width=True)
 
     # Predict button
     if st.button("🔍 Predict Dish & Fish"):

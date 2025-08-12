@@ -6,6 +6,11 @@ Every sushi enthusiast has experienced it. You pick up that paradigm of a delica
 
 Too many times I've eaten something delicious whilst not knowing anything about it. Deciding to end the games at last, I built an image classifier to identify different kinds of Japanese seafood dishes along with the species of fish used in them.
 
+<p align="center">
+  <img src="website_sample.png" height="190" style="margin-right: 10px; border: 1px solid black;" />
+  <img src="website_sample2.png" height="190" style="margin-left: 10px; border: 1px solid black;/>
+</p>
+
 ---
 
 ## 🛠️ Project Milestones
@@ -13,11 +18,13 @@ Too many times I've eaten something delicious whilst not knowing anything about 
 ### ~~Basics~~ ✅
 
 - **Build a basic classifier using PyTorch** ✅ -> Used Resnet18
+
   - Experiment with different architectures
   - Research and document findings
   - Limit to two types of sashimi - salmon and otoro
 
 - **Data Collection** ✅
+
   - Manually curate and label a dataset
   - Train the initial model
 
@@ -28,15 +35,17 @@ Too many times I've eaten something delicious whilst not knowing anything about 
 ---
 
 ### Desirable Features
-- **Create a custom classifier** 
+
+- **Create a custom classifier**
 
 - **Expand the Dataset** ✅ -> Used Google API
   - Include more types of sashimi
   - Automate data gathering & processing
-  - 
-- **Go Beyond Sashimi** ✅ -> Classifies different types of sushi 
+  -
+- **Go Beyond Sashimi** ✅ -> Classifies different types of sushi
 
 - **Extend to Images with Multiple Difference Pieces of Sashimi** ❌ -> Unable to label bounding boxes
+
   - Reflect in frontend, attaching labels to each 'group' of fish
 
 - **Add Benchmarking**
