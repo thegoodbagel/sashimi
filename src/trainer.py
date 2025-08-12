@@ -3,8 +3,8 @@ import torch
 from torch.utils.data import DataLoader
 from torchvision import transforms
 import pandas as pd
-from fish_classifier import FishClassifier
-from fish_dataset import FishDataset
+from sushi_classifier import SushiClassifier
+from sushi_dataset import SushiDataset
 from torch.nn import CrossEntropyLoss
 from torch.optim import Adam
 from sklearn.model_selection import StratifiedShuffleSplit
@@ -13,8 +13,8 @@ import os
 
 def main():
     # Paths
-    label_path = os.getenv("LABEL_PATH", "./data/dish/sushi_labels.csv")
-    image_dir = os.getenv("IMAGE_DIR", "./data/dish/processed")
+    label_path = os.getenv("LABEL_PATH", "./data/fish/sushi_labels.csv")
+    image_dir = os.getenv("IMAGE_DIR", "./data/fish/processed")
     model_save_path = os.getenv("MODEL_SAVE_PATH", "saved_models/fish/best_model.pth")
     target_column = os.getenv("TARGET_COLUMN", "type")
 
@@ -28,7 +28,7 @@ def main():
     df = pd.read_csv(label_path)
     df = df.dropna(subset=[target_column])
 
-    # Remove rare species classes (less than 6 instances)
+    # Remove rare type classes (less than 6 instances)
     counts = df[target_column].value_counts()
     valid = counts[counts >= 6].index
     df = df[df[target_column].isin(valid)]
@@ -58,25 +58,24 @@ def main():
     ])
 
     # Datasets and loaders
-    train_dataset = FishDataset(train_df, image_dir, target_column, transform=transform)
-    val_dataset = FishDataset(val_df, image_dir, target_column, transform=transform)
+    train_dataset = SushiDataset(train_df, image_dir, target_column, transform=transform)
+    val_dataset = SushiDataset(val_df, image_dir, target_column, transform=transform)
 
-    train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=4, shuffle=False)
+    train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+    val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
 
     # Model, losses, optimizer
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = FishClassifier(label_list).to(device)
+    model = SushiClassifier(label_list).to(device)
 
-    species_criterion = CrossEntropyLoss()
-    part_criterion = CrossEntropyLoss()
+    type_criterion = CrossEntropyLoss()
     optimizer = Adam(model.parameters(), lr=1e-4)
 
     best_val_acc = 0.0
 
     # Training loop
     for epoch in range(10):
-        train(model, train_loader, species_criterion, optimizer, device)
+        train(model, train_loader, type_criterion, optimizer, device)
         val_acc = evaluate(model, val_loader, device, label_to_idx)
 
         print(f"Epoch {epoch+1}: Val Accuracy = {val_acc:.2f}")
@@ -97,35 +96,60 @@ def _forward_pass(model, images, labels, loss_function):
 
 def train(model, dataloader, loss_function, optimizer, device):
     model.train()
-    for images, species_labels in dataloader:
+    for images, type_labels in dataloader:
         images = images.to(device)
-        species_labels = species_labels.to(device)
+        type_labels = type_labels.to(device)
 
-        logits, loss = _forward_pass(model, images, species_labels, loss_function)
+        logits, loss = _forward_pass(model, images, type_labels, loss_function)
 
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
 
-def evaluate(model, dataloader, device, species_to_idx):
+def evaluate(model, dataloader, device, label_to_idx):
     model.eval()
-    correct_species = 0
-    total = 0
+
+    num_classes = len(label_to_idx)
+    correct_per_class = [0] * num_classes
+    total_per_class = [0] * num_classes
 
     with torch.no_grad():
-        for images, species_labels in dataloader:
+        for images, type_labels in dataloader:
             images = images.to(device)
-            species_labels = species_labels.to(device)
+            type_labels = type_labels.to(device)
 
-            species_logits = model(images)
-            _, pred_species = torch.max(species_logits, 1)
+            type_logits = model(images)
+            _, pred_type = torch.max(type_logits, 1)
 
-            correct_species += (pred_species == species_labels).sum().item()
-            total += species_labels.size(0)
-    species_acc = correct_species / total
-    print(f"Accuracy: {species_acc:.2f}")
-    return (species_acc) / 2
+            for label, pred in zip(type_labels, pred_type):
+                label = label.item()
+                pred = pred.item()
+                total_per_class[label] += 1
+                if label == pred:
+                    correct_per_class[label] += 1
+
+    # Calculate accuracy per class
+    acc_per_class = []
+    for i in range(num_classes):
+        if total_per_class[i] > 0:
+            acc = correct_per_class[i] / total_per_class[i]
+        else:
+            acc = 0.0
+        acc_per_class.append(acc)
+
+    # Overall accuracy
+    overall_acc = sum(correct_per_class) / sum(total_per_class)
+
+    # Map idx to label name for printing
+    idx_to_label = {idx: label for label, idx in label_to_idx.items()}
+
+    print("\nPer-class accuracy:")
+    for i, acc in enumerate(acc_per_class):
+        print(f"  Class '{idx_to_label[i]}': {acc:.4f}")
+
+    return overall_acc
+
 
 
 if __name__ == "__main__":
