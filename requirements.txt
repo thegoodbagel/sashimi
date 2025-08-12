@@ -6,4 +6,3 @@ matplotlib
 pillow
 scikit-learn
 streamlit==1.46.1
-streamlit-space==0.1.5

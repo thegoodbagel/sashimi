@@ -1,12 +1,15 @@
 import streamlit as st
 import torch
-from streamlit_space import space
 from torchvision import transforms
 from PIL import Image
 from models.sushi_classifier import SushiClassifier
 from models.predictor import predict
 from components.sushi_guide import show_sushi_guide
 from components.sushi_info import show_info_page
+
+def space(lines: int = 1):
+    for _ in range(lines):
+        st.write("")
 
 # Setup
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
