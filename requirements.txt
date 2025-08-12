@@ -3,6 +3,7 @@ torchvision==0.22.0
 pandas
 numpy
 matplotlib
-Pillow
+pillow
 scikit-learn
-streamlit
+streamlit==1.46.1
+streamlit-space==0.1.5
