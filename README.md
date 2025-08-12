@@ -2,9 +2,9 @@
 
 _A sushi companion for the introverted foodie._
 
-Have you ever wanted to learn about different types of sushi but felt too shy to ask the chef? This project is for you.
+Every sushi enthusiast has experienced it. You pick up that paradigm of a delicacy, and take a bite. It's delightfully silky, incredibly flavorful, just melts in your mouth. But *what is it*? Too shy to bother the waiter, to embarrassed to ask the chef...you blush at your ignorant, wannabe-connoisseur status.
 
-We're building an image classifier to identify different kinds of sushi—dish and fish—because the ones that are currently out there just don’t cut it.
+Too many times I've eaten something delicious whilst not knowing anything about it. Deciding to end the games at last, I built an image classifier to identify different kinds of Japanese seafood dishes along with the species of fish used in them.
 
 ---
 
