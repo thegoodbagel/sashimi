@@ -1,10 +1,10 @@
-# 🍣 Sashimi Classifier App
+# 🍣 Sushi Classifier App
 
 _A sushi companion for the introverted foodie._
 
-Have you ever wanted to learn about different types of sashimi but felt too shy to ask the chef? This project is for you.
+Have you ever wanted to learn about different types of sushi but felt too shy to ask the chef? This project is for you.
 
-We're building an image classifier to identify different kinds of sashimi—because the ones that are currently out there just doesn’t cut it.
+We're building an image classifier to identify different kinds of sushi—dish and fish—because the ones that are currently out there just don’t cut it.
 
 ---
 
@@ -33,8 +33,10 @@ We're building an image classifier to identify different kinds of sashimi—beca
 - **Expand the Dataset** ✅ -> Used Google API
   - Include more types of sashimi
   - Automate data gathering & processing
+  - 
+- **Go Beyond Sashimi** ✅ -> Classifies different types of sushi 
 
-- **Extend to Images with Multiple Difference Pieces of Sashimi**
+- **Extend to Images with Multiple Difference Pieces of Sashimi** ❌ -> Unable to label bounding boxes
   - Reflect in frontend, attaching labels to each 'group' of fish
 
 - **Add Benchmarking**
